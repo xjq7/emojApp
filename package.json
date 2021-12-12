@@ -5,8 +5,8 @@
   "scripts": {
     "android": "react-native run-android",
     "ios": "react-native run-ios",
-    "start": "react-native start",
-    "restart": "react-native start --reset-cache",
+    "start": "cross-env NODE_ENV=development react-native start",
+    "restart": "cross-env NODE_ENV=development react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
@@ -37,6 +37,7 @@
     "babel-plugin-module-resolver": "^4.1.0",
     "babel-plugin-react-native-platform-specific-extensions": "^1.1.1",
     "babel-plugin-react-native-stylename-to-style": "^0.13.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.14.0",
     "eslint-plugin-prettier": "^4.0.0",
     "jest": "^26.6.3",
