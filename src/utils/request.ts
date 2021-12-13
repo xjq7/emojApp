@@ -1,16 +1,22 @@
 import Axios from 'axios';
 import {Toast} from '@components/index';
+import Config from '../config/config';
 
 const instance = Axios.create({
-  baseURL: 'API' as string,
+  baseURL: Config.API_URL + '/v1',
   timeout: 5000,
+  headers: {
+    Accept: 'application/json',
+  },
 });
 
 instance.interceptors.request.use(
   (config: any) => {
     const newConfig = {...config};
-    // const token = localStorage.getItem('token');
-    // newConfig.headers.Authorization = `Bearer ${token}`;
+    newConfig.headers.Authorization =
+      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzkxNTk4MjIsImV4cCI6MTY0MTc1MTgyMn0.HVnWe88Ma4CBW6LVEicT8GHtCVPm2Pd7lJ66wpniepU';
+    console.log(newConfig);
+
     return newConfig;
   },
   err => Promise.reject(err),
@@ -27,6 +33,8 @@ instance.interceptors.response.use(
     return data;
   },
   err => {
+    console.log(err);
+
     const {status} = err.response;
     if (status === 401) {
       Toast.show({type: 'error', text1: '登录失效，请重新登录'});

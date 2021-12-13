@@ -1,10 +1,10 @@
 import {useEffect} from 'react';
 import {StatusBar} from 'react-native';
-// import {useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {isAndroid} from '@utils/platform';
 
 function Index() {
-  // const navigation = useNavigation();
+  const navigation = useNavigation();
 
   const initRequest = async () => {
     goNextPage();
@@ -25,7 +25,7 @@ function Index() {
     //   goPage('walletIndex');
     //   return;
     // }
-    // navigation.replace('home');
+    navigation.reset({index: 0, routes: [{name: 'home' as never}]});
   };
 
   const hideSplash = () => {
