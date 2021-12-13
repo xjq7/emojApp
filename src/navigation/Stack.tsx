@@ -1,20 +1,25 @@
 import React from 'react';
-import {createStackNavigator} from '@react-navigation/stack';
 import Tab from './Tabs';
 import Setting from '@pages/tab/setting';
+import Launch from '@pages/launch';
+import {NavigationContainer} from '@react-navigation/native';
+import createInterceptStack from './InterceptStack';
 
-const Stack = createStackNavigator();
+const Stack = createInterceptStack();
 
 const StackScreen = () => {
   return (
-    <Stack.Navigator initialRouteName="Tab">
-      <Stack.Screen name="Tab" component={Tab} options={{headerShown: false}} />
-      <Stack.Screen
-        name="Setting"
-        component={Setting}
-        options={{headerShown: false}}
-      />
-    </Stack.Navigator>
+    <NavigationContainer>
+      <Stack.Navigator
+        screenOptions={{
+          headerShown: false,
+        }}
+        initialRouteName="launch">
+        <Stack.Screen name="launch" component={Launch} />
+        <Stack.Screen name="home" component={Tab} />
+        <Stack.Screen name="setting" component={Setting} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 };
 export default StackScreen;
