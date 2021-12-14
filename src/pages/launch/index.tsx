@@ -12,19 +12,8 @@ function Index() {
   };
 
   const goNextPage = async () => {
-    // if (!isLogin) {
-    //   goPage('authLogin');
-    //   return;
-    // }
-    // if (!userPin) {
-    //   goPage('pinCreate');
-    //   return;
-    // }
-    // const { mnemonic, privateKey } = result || {};
-    // if (!mnemonic && !privateKey) {
-    //   goPage('walletIndex');
-    //   return;
-    // }
+    navigation.navigate({name: 'login'} as never);
+    return;
     navigation.reset({index: 0, routes: [{name: 'home' as never}]});
   };
 

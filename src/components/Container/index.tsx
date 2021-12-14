@@ -1,21 +1,11 @@
 import React from 'react';
-import {View} from 'react-native';
-import {Header, HeaderProps} from 'react-native-elements';
+import {View, ViewProps} from 'react-native';
 import styles from './styles';
 
-interface Props extends HeaderProps {}
+interface Props extends ViewProps {}
 
 export default function Container(props: Props) {
-  const {children, leftComponent, rightComponent, centerComponent} = props;
+  const {children} = props;
 
-  return (
-    <View style={styles.container}>
-      <Header
-        leftComponent={leftComponent}
-        centerComponent={centerComponent}
-        rightComponent={rightComponent}
-      />
-      {children}
-    </View>
-  );
+  return <View style={styles.container}>{children}</View>;
 }

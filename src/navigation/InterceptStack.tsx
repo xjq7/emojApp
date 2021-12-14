@@ -7,18 +7,19 @@ import {
 import {StackView} from '@react-navigation/stack';
 
 // 登录拦截路由白名单
-// const noNeedLoginRoutes = [];
+const noNeedLoginRoutes: string[] = [];
 
 const InterceptStackRouter = (options: any) => {
   const router = StackRouter(options);
   return {
     ...router,
     getStateForAction(state: any, action: any, options: any) {
-      // const { isLogin } = store.getState().userReducer;
-      // const { name } = action.payload || {};
-      // if (!isLogin && name && !noNeedLoginRoutes.includes(name)) {
-      //   action.payload.name = 'authLogin';
-      // }
+      const isLogin = false;
+      const {name} = action.payload || {};
+      if (!isLogin && name && !noNeedLoginRoutes.includes(name)) {
+        action.payload.name = 'login';
+      }
+
       const result = router.getStateForAction(state, action, options);
       return result;
     },

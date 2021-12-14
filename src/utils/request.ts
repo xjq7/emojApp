@@ -15,8 +15,6 @@ instance.interceptors.request.use(
     const newConfig = {...config};
     newConfig.headers.Authorization =
       'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzkxNTk4MjIsImV4cCI6MTY0MTc1MTgyMn0.HVnWe88Ma4CBW6LVEicT8GHtCVPm2Pd7lJ66wpniepU';
-    console.log(newConfig);
-
     return newConfig;
   },
   err => Promise.reject(err),
