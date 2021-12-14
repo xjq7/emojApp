@@ -1,7 +1,7 @@
 import React from 'react';
 import {View} from 'react-native';
 import {Header, HeaderProps} from 'react-native-elements';
-import styles from './index.scss';
+import styles from './styles';
 
 interface Props extends HeaderProps {}
 
