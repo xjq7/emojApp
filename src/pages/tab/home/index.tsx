@@ -2,10 +2,15 @@ import React, {useEffect, useState} from 'react';
 import {Button, Image, FlatList, Text, View} from 'react-native';
 import Container from '@components/Container';
 import {getEmojList} from '@services/emoj';
+import {RootStackParamList} from '@navigation/Stack';
 import {Toast} from '@components/index';
-import styles from './index.scss';
+import styles from './styles';
+import {StackScreenProps} from '@react-navigation/stack';
 
-export default function HomeScreen({navigation}) {
+export default function HomeScreen({
+  navigation,
+}: StackScreenProps<RootStackParamList, 'home'>) {
+  console.log(navigation);
   const [list, setList] = useState([]);
 
   useEffect(() => {
@@ -20,7 +25,7 @@ export default function HomeScreen({navigation}) {
   const renderItem = ({item}: any) => {
     const {url} = item;
     return (
-      <View>
+      <View style={styles.modalContainer}>
         <Image
           source={{
             uri: url.replace('https://', 'http://'),

@@ -1,3 +1,5 @@
+import {TextStyle, ViewStyle, ImageStyle} from 'react-native';
+
 export interface AnyOptions {
   [key: string]: any;
 }
@@ -21,3 +23,5 @@ export interface ResponseList<T> {
     list?: T[];
   } & PageInfo;
 }
+
+export type Style = Record<string, TextStyle | ViewStyle | ImageStyle>;

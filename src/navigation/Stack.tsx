@@ -5,7 +5,13 @@ import Launch from '@pages/launch';
 import {NavigationContainer} from '@react-navigation/native';
 import createInterceptStack from './InterceptStack';
 
-const Stack = createInterceptStack();
+export type RootStackParamList = {
+  home: undefined;
+  launch: undefined;
+  setting: undefined;
+};
+
+const Stack = createInterceptStack<RootStackParamList>();
 
 const StackScreen = () => {
   return (
