@@ -7,8 +7,8 @@
     "ios": "react-native run-ios",
     "releaseApk": "cd android && ./gradlew cleanBuildCache && cross-env ENVFILE=.env.prod ./gradlew assembleRelease",
     "releaseApk-dev": "cd android && ./gradlew cleanBuildCache && cross-env ENVFILE=.env.dev ./gradlew assembleRelease",
-    "start": "cross-env NODE_ENV=development react-native start",
-    "restart": "cross-env NODE_ENV=development react-native start --reset-cache",
+    "start": "cross-env ENVFILE=.env.dev react-native start",
+    "restart": "cross-env ENVFILE=.env.dev react-native start --reset-cache",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
