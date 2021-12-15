@@ -6,7 +6,7 @@ import {StyleSheet} from 'react-native';
 type Style<T> = StyleSheet.NamedStyles<T>;
 
 // 转换忽略属性
-const scaleIgnore = ['flex', 'opacity'];
+const scaleIgnore = ['flex', 'opacity', 'fontSize'];
 const scaleIgnoreSet = new Set(scaleIgnore);
 
 const themeMapSet: Set<string> = new Set(Object.keys(themeMap));

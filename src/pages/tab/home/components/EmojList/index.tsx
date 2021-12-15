@@ -1,10 +1,15 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {FlatList, View, Image} from 'react-native';
+import {FlatList, View, Image, TouchableOpacity} from 'react-native';
 import {Emoj, getEmojList} from '@services/emoj';
 import Loading from '@components/Loading';
+import Modal from '@components/Modal';
 import styles from './styles';
+import themeMap from '@utils/themeMap';
+import ModalEmojDetail, {ModalData} from '../ModalEmojDetail';
 
 function EmojList() {
+  const [isVisible, setIsVisible] = useState(false);
+  const [modalData, setModalData] = useState<ModalData>();
   const [list, setList] = useState<Emoj[]>([]);
 
   const pageInfoRef = useRef({page: 1, pageSize: 30});
@@ -33,16 +38,29 @@ function EmojList() {
     fetchList();
   }, []);
 
+  const hideModal = () => {
+    setIsVisible(false);
+  };
+  const showModal = () => {
+    setIsVisible(true);
+  };
+
   const renderItem = ({item}: any) => {
     const {url} = item;
     return (
       <View style={styles.item}>
-        <Image
-          source={{
-            uri: url.replace('https://', 'http://'),
-          }}
-          style={styles.image}
-        />
+        <TouchableOpacity
+          onPress={() => {
+            setModalData({url: url.replace('https://', 'http://')});
+            showModal();
+          }}>
+          <Image
+            source={{
+              uri: url.replace('https://', 'http://'),
+            }}
+            style={styles.image}
+          />
+        </TouchableOpacity>
       </View>
     );
   };
@@ -52,21 +70,27 @@ function EmojList() {
       return;
     }
     pageInfoRef.current = {page: pageInfoRef.current.page + 1, pageSize: 30};
-    console.log(pageInfoRef.current);
 
     fetchList();
   };
 
   return (
-    <FlatList
-      keyExtractor={item => String(item.id)}
-      data={list}
-      renderItem={renderItem}
-      numColumns={3}
-      horizontal={false}
-      onEndReached={fetchMore}
-      ListFooterComponent={() => <Loading />}
-    />
+    <>
+      <FlatList
+        keyExtractor={item => String(item.id)}
+        data={list}
+        renderItem={renderItem}
+        numColumns={3}
+        horizontal={false}
+        onEndReached={fetchMore}
+        ListFooterComponent={() => <Loading />}
+      />
+      <ModalEmojDetail
+        isVisible={isVisible}
+        data={modalData}
+        onClose={hideModal}
+      />
+    </>
   );
 }
 

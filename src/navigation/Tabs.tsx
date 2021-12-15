@@ -16,11 +16,11 @@ export default function App() {
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           color = focused ? themeMap.$Primary : themeMap.$BlackS;
-          if (route.name === 'home') {
+          if (route.name === 'Home') {
             return (
               <IoniconsIcon name="ios-home-outline" size={size} color={color} />
             );
-          } else if (route.name === 'emoj') {
+          } else if (route.name === 'Emoj') {
             return <FontAwesomeIcon name="smile-o" size={size} color={color} />;
           }
         },
@@ -33,7 +33,7 @@ export default function App() {
         },
       })}>
       <Tab.Screen
-        name="home"
+        name="Home"
         component={Home}
         options={{
           tabBarLabel: '首页',
@@ -42,7 +42,7 @@ export default function App() {
         }}
       />
       <Tab.Screen
-        name="emoj"
+        name="Emoj"
         component={Emoj}
         options={{
           tabBarLabel: 'Emoj',
