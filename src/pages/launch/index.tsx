@@ -5,15 +5,12 @@ import {isAndroid} from '@utils/platform';
 
 function Index() {
   const navigation = useNavigation();
-
   const initRequest = async () => {
     goNextPage();
     hideSplash();
   };
 
   const goNextPage = async () => {
-    navigation.navigate({name: 'login'} as never);
-    return;
     navigation.reset({index: 0, routes: [{name: 'home' as never}]});
   };
 

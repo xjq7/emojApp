@@ -1,27 +1,26 @@
 import * as React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import IoniconsIcons from 'react-native-vector-icons/Ionicons';
+import IoniconsIcon from 'react-native-vector-icons/Ionicons';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+
 import Home from '@pages/tab/home';
-import Setting from '@pages/tab/setting';
+import Emoj from '@pages/tab/emoj';
 
 const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <Tab.Navigator
-      initialRouteName="Settings"
+      initialRouteName="home"
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
           let iconName = 'home';
-
-          if (route.name === 'Home') {
+          if (route.name === 'home') {
             iconName = focused ? 'ios-home' : 'ios-home-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
+            return <IoniconsIcon name={iconName} size={size} color={color} />;
+          } else if (route.name === 'emoj') {
+            return <FontAwesomeIcon name="smile-o" size={size} color={color} />;
           }
-
-          // You can return any component that you like here!
-          return <IoniconsIcons name={iconName} size={size} color={color} />;
         },
         tabBarActiveTintColor: 'tomato',
         tabBarInactiveTintColor: 'gray',
@@ -33,18 +32,17 @@ export default function App() {
         headerShown: false,
       })}>
       <Tab.Screen
-        name="Home"
+        name="home"
         component={Home}
         options={{
-          tabBarLabel: 'Home',
+          tabBarLabel: '首页',
         }}
       />
       <Tab.Screen
-        name="Settings"
-        component={Setting}
+        name="emoj"
+        component={Emoj}
         options={{
-          tabBarLabel: 'Settings',
-          tabBarBadge: 3,
+          tabBarLabel: 'Emoj',
         }}
       />
     </Tab.Navigator>
