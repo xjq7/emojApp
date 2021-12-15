@@ -1,5 +1,3 @@
-import {AnyOptions} from './types';
-
 // 主题颜色
 const $Primary = '#fa331d';
 const $Yellow = '#ffc65d';
@@ -14,7 +12,20 @@ const $PageBg = '#f5f5f9';
 const $Divider = '#e8e9ee';
 const $White = '#ffffff';
 
-const themeMapStyle: AnyOptions = {
+interface ThemeMapProps {
+  $Primary: string;
+  $Yellow: string;
+  $Blue: string;
+  $BlackM: string;
+  $BlackXL: string;
+  $BlackL: string;
+  $PageBg: string;
+  $Divider: string;
+  $White: string;
+  $BlackS: string;
+}
+
+const themeMap: ThemeMapProps = {
   $Primary,
   $Yellow,
   $Blue,
@@ -27,4 +38,4 @@ const themeMapStyle: AnyOptions = {
   $White,
 };
 
-export default themeMapStyle;
+export default themeMap;

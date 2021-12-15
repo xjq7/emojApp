@@ -1,5 +1,5 @@
 import _ from 'lodash';
-import themeMapStyle from './themeMapStyle';
+import themeMap from './themeMap';
 import scalePx from './scalePx';
 import {StyleSheet} from 'react-native';
 
@@ -9,7 +9,7 @@ type Style<T> = StyleSheet.NamedStyles<T>;
 const scaleIgnore = ['flex', 'opacity'];
 const scaleIgnoreSet = new Set(scaleIgnore);
 
-const themeMapStyleSet: Set<string> = new Set(Object.keys(themeMapStyle));
+const themeMapSet: Set<string> = new Set(Object.keys(themeMap));
 
 // 递归缩放样式中的数字类型
 function scaleStyle<T>(obj: Style<T>): Style<T> {
@@ -20,8 +20,8 @@ function scaleStyle<T>(obj: Style<T>): Style<T> {
     const value = obj[key];
     if (scaleIgnoreSet.has(key)) {
       continue;
-    } else if (themeMapStyleSet.has(key)) {
-      obj[key] = themeMapStyle[key];
+    } else if (themeMapSet.has(key)) {
+      obj[key] = themeMap[key as keyof typeof themeMap] as unknown as T;
     } else if (_.isNumber(value) && value > 1) {
       obj[key] = scalePx(value) as unknown as T;
     }

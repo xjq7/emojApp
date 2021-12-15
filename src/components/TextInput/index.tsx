@@ -1,17 +1,15 @@
 import React, {useState, useRef} from 'react';
-import {TextInput} from 'react-native';
-import themeMap from '@utils/themeMapStyle';
+import {TextInput, TextInputProps} from 'react-native';
+import themeMap from '@utils/themeMap';
 
-interface Props {
+interface Props extends TextInputProps {
   defaultValue?: string;
-  maxLength?: number;
-  style?: any;
   onChangeText?(text?: string): void;
-  ref?: any;
+  ref?: React.RefObject<TextInput>;
 }
 
 function Input(props: Props) {
-  const {defaultValue, style, maxLength, onChangeText, ...restProps} = props;
+  const {defaultValue, style, onChangeText, ...restProps} = props;
   const [value, setValue] = useState(defaultValue);
   const inputRef = useRef<TextInput | null>();
 
@@ -29,7 +27,6 @@ function Input(props: Props) {
       style={style}
       onChangeText={handleChange}
       placeholderTextColor={themeMap.$BlackXL}
-      maxLength={maxLength}
       {...restProps}
     />
   );

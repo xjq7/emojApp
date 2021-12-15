@@ -1,6 +1,6 @@
 import {StyleSheet, TextStyle, ViewStyle} from 'react-native';
 import scaleStyle from '@utils/scaleStyle';
-import themeMapStyle from '@utils/themeMapStyle';
+import themeMap from '@utils/themeMap';
 
 interface Style {
   input: ViewStyle;
@@ -12,7 +12,7 @@ const style: Style = {
     width: 600,
     height: 100,
     borderBottomWidth: 1,
-    borderColor: themeMapStyle.$Divider,
+    borderColor: themeMap.$Divider,
     marginHorizontal: 'auto',
     marginVertical: 0,
     flexDirection: 'row',
