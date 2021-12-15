@@ -5,6 +5,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import Home from '@pages/tab/home';
 import Emoj from '@pages/tab/emoj';
+import themeMap from '@utils/themeMap';
 
 const Tab = createBottomTabNavigator();
 
@@ -14,28 +15,30 @@ export default function App() {
       initialRouteName="home"
       screenOptions={({route}) => ({
         tabBarIcon: ({focused, color, size}) => {
-          let iconName = 'home';
+          color = focused ? themeMap.$Primary : themeMap.$BlackS;
           if (route.name === 'home') {
-            iconName = focused ? 'ios-home' : 'ios-home-outline';
-            return <IoniconsIcon name={iconName} size={size} color={color} />;
+            return (
+              <IoniconsIcon name="ios-home-outline" size={size} color={color} />
+            );
           } else if (route.name === 'emoj') {
             return <FontAwesomeIcon name="smile-o" size={size} color={color} />;
           }
         },
-        tabBarActiveTintColor: 'tomato',
+        tabBarActiveTintColor: themeMap.$Primary,
         tabBarInactiveTintColor: 'gray',
         tabBarLabelStyle: {
           fontSize: 12,
           marginTop: -3,
           marginBottom: 3,
         },
-        headerShown: false,
       })}>
       <Tab.Screen
         name="home"
         component={Home}
         options={{
           tabBarLabel: '首页',
+          headerTitle: '首页',
+          headerShown: false,
         }}
       />
       <Tab.Screen
@@ -43,6 +46,7 @@ export default function App() {
         component={Emoj}
         options={{
           tabBarLabel: 'Emoj',
+          headerTitle: '小表情',
         }}
       />
     </Tab.Navigator>

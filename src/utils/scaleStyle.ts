@@ -18,12 +18,15 @@ function scaleStyle<T>(obj: Style<T>): Style<T> {
   }
   for (const key in obj) {
     const value = obj[key];
+
     if (scaleIgnoreSet.has(key)) {
       continue;
     } else if (themeMapSet.has(key)) {
       obj[key] = themeMap[key as keyof typeof themeMap] as unknown as T;
     } else if (_.isNumber(value) && value > 1) {
       obj[key] = scalePx(value) as unknown as T;
+    } else {
+      scaleStyle(value as unknown as Style<T>);
     }
   }
   return obj;

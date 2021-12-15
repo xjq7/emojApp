@@ -1,11 +1,14 @@
-import * as React from 'react';
-import {Button, Text, View} from 'react-native';
+import React from 'react';
+import {RootStackParamList} from '@navigation/Stack';
+import {StackScreenProps} from '@react-navigation/stack';
+import {Text, View} from 'react-native';
 
-export default function SettingsScreen({navigation}: any) {
+export default function SettingsScreen({
+  navigation,
+}: StackScreenProps<RootStackParamList, 'emoj'>) {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Settings!</Text>
-      <Button title="Go to Home" onPress={() => navigation.navigate('Home')} />
+      <Text>Emoj!</Text>
     </View>
   );
 }

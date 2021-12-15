@@ -11,6 +11,7 @@ export type RootStackParamList = {
   launch: undefined;
   setting: undefined;
   login: undefined;
+  emoj: undefined;
 };
 
 const Stack = createInterceptStack<RootStackParamList>();
