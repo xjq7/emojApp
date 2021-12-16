@@ -27,7 +27,7 @@ export default function App() {
         tabBarActiveTintColor: themeMap.$Primary,
         tabBarInactiveTintColor: 'gray',
         tabBarLabelStyle: {
-          fontSize: 12,
+          fontSize: 24,
           marginTop: -3,
           marginBottom: 3,
         },

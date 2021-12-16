@@ -34,7 +34,7 @@ const style: Style = {
     marginTop: 20,
   },
   btnLabel: {
-    fontSize: 12,
+    fontSize: 24,
     color: themeMap.$BlackS,
   },
 };

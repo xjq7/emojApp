@@ -5653,6 +5653,11 @@ react-native-gesture-handler@^2.1.0:
     lodash "^4.17.21"
     prop-types "^15.7.2"
 
+react-native-haptic-feedback@^1.13.0:
+  version "1.13.0"
+  resolved "https://registry.npmmirror.com/react-native-haptic-feedback/download/react-native-haptic-feedback-1.13.0.tgz#e4974fc465a38548be262748e73098dc9dd3a0fb"
+  integrity sha1-5JdPxGWjhUi+JidI5zCY3J3ToPs=
+
 react-native-modal@^13.0.0:
   version "13.0.0"
   resolved "https://registry.nlark.com/react-native-modal/download/react-native-modal-13.0.0.tgz#b7117400cae8548e713eed760077dee44f78628e"

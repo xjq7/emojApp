@@ -36,7 +36,12 @@ instance.interceptors.response.use(
     const {status} = err.response;
     if (status === 401) {
       Toast.show({type: 'error', text1: '登录失效，请重新登录'});
-      setTimeout(() => {}, 1000);
+    } else {
+      Toast.show({
+        type: 'error',
+        text1: '请求失败',
+        text2: JSON.stringify(err),
+      });
     }
     return Promise.reject(err);
   },

@@ -27,6 +27,7 @@
     "react-native-config": "^1.4.5",
     "react-native-fs": "^2.18.0",
     "react-native-gesture-handler": "^2.1.0",
+    "react-native-haptic-feedback": "^1.13.0",
     "react-native-modal": "^13.0.0",
     "react-native-pager-view": "^5.4.9",
     "react-native-safe-area-context": "^3.3.2",
