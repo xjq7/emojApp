@@ -4,7 +4,6 @@ import ITextInput from '@components/TextInput';
 import styles from './styles';
 
 interface Props extends TextInputProps {
-  style?: any;
   maxLength?: number;
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import {Text, View, ViewProps, ViewStyle} from 'react-native';
+import {Text, TextStyle, View, ViewProps} from 'react-native';
 import PressView from '../PressView';
 import Loading from '../Loading';
 import themeMap from '@utils/themeMap';
@@ -13,7 +13,8 @@ interface Props extends ViewProps {
   loading?: boolean;
   type?: 'Solid' | 'Outline';
   title: string;
-  textStyle?: ViewStyle;
+  textStyle?: TextStyle;
+  onPress?(): void;
 }
 
 function Component(props: Props) {

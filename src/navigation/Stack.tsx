@@ -4,7 +4,7 @@ import Setting from '@pages/tab/setting';
 import Launch from '@pages/launch';
 import Login from '@pages/login';
 import {NavigationContainer} from '@react-navigation/native';
-import createInterceptStack from './InterceptStack';
+import {createStackNavigator} from '@react-navigation/stack';
 
 export type RootStackParamList = {
   home: undefined;
@@ -14,7 +14,7 @@ export type RootStackParamList = {
   emoj: undefined;
 };
 
-const Stack = createInterceptStack<RootStackParamList>();
+const Stack = createStackNavigator<RootStackParamList>();
 
 const StackScreen = () => {
   return (

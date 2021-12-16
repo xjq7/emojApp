@@ -18,8 +18,11 @@ const style: Style = {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'white',
+    borderRadius: 50,
+    paddingLeft: 20,
   },
   input_textInput: {
+    width: '100%',
     fontSize: 28,
   },
 };

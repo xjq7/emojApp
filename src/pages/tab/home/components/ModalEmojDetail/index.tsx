@@ -3,6 +3,7 @@ import {View, Text, Image, TouchableOpacity} from 'react-native';
 import Modal from '@components/Modal';
 import CameraRoll from '@react-native-community/cameraroll';
 import Toast from '@components/Toast';
+import RToast from 'react-native-toast-message';
 import styles from './styles';
 
 import {PermissionsAndroid, Platform} from 'react-native';
@@ -41,6 +42,7 @@ function ModalEmojDetail(props: Props) {
     <Modal
       style={{alignItems: 'center'}}
       isVisible={isVisible}
+      coverScreen={true}
       animationIn="fadeIn"
       animationOut="fadeOut"
       onBackdropPress={() => {
@@ -92,6 +94,7 @@ function ModalEmojDetail(props: Props) {
           </TouchableOpacity>
         </View>
       )}
+      <RToast />
     </Modal>
   );
 }

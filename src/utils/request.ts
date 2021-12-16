@@ -1,9 +1,13 @@
 import Axios from 'axios';
 import {Toast} from '@components/index';
 import Config from '../config/config';
+import {getRecoil, setRecoil} from 'recoil-nexus';
+import {tokenAtom} from '@atom/user';
+console.log(Config);
 
 const instance = Axios.create({
-  baseURL: Config.API_URL + '/v1',
+  // baseURL: 'http://192.168.1.106:39001/v1/c',
+  baseURL: Config.API_URL + '/v1/c',
   timeout: 5000,
   headers: {
     Accept: 'application/json',
@@ -13,8 +17,8 @@ const instance = Axios.create({
 instance.interceptors.request.use(
   (config: any) => {
     const newConfig = {...config};
-    newConfig.headers.Authorization =
-      'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MzkxNTk4MjIsImV4cCI6MTY0MTc1MTgyMn0.HVnWe88Ma4CBW6LVEicT8GHtCVPm2Pd7lJ66wpniepU';
+    const {token = ''} = getRecoil(tokenAtom) || {};
+    newConfig.headers.Authorization = 'Bearer ' + token;
     return newConfig;
   },
   err => Promise.reject(err),
@@ -24,6 +28,7 @@ instance.interceptors.response.use(
   response => {
     const {data} = response;
     const {code, message} = data || {};
+
     if (code !== 0) {
       Toast.show({type: 'error', text1: message});
       return Promise.reject(data);
@@ -31,10 +36,9 @@ instance.interceptors.response.use(
     return data;
   },
   err => {
-    console.log(err);
-
     const {status} = err.response;
     if (status === 401) {
+      setRecoil(tokenAtom, {token: ''});
       Toast.show({type: 'error', text1: '登录失效，请重新登录'});
     } else {
       Toast.show({

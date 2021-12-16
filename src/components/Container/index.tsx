@@ -9,11 +9,13 @@ interface Props extends ViewProps {
 }
 
 export default function Container(props: Props) {
-  const {children, hasHeader = false} = props;
+  const {children, hasHeader = false, style} = props;
 
   if (hasHeader) {
-    return <View style={styles.container}>{children}</View>;
+    return <View style={[styles.container, style]}>{children}</View>;
   }
 
-  return <SafeAreaView style={styles.container}>{children}</SafeAreaView>;
+  return (
+    <SafeAreaView style={[styles.container, style]}>{children}</SafeAreaView>
+  );
 }

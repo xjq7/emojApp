@@ -8,7 +8,12 @@ export default function SettingsScreen({
 }: StackScreenProps<RootStackParamList, 'emoj'>) {
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Emoj!</Text>
+      <Text
+        onPress={() => {
+          navigation.navigate('login');
+        }}>
+        Emoj!
+      </Text>
     </View>
   );
 }

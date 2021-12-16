@@ -1,11 +1,10 @@
 import React, {useState, useEffect, useRef} from 'react';
-import {FlatList, View, Image, TouchableOpacity} from 'react-native';
+import {FlatList, View, Image, TouchableOpacity, Text} from 'react-native';
 import {Emoj, getEmojList} from '@services/emoj';
-import Loading from '@components/Loading';
-import Modal from '@components/Modal';
+import {Loading} from '@components/index';
 import styles from './styles';
-import themeMap from '@utils/themeMap';
 import ModalEmojDetail, {ModalData} from '../ModalEmojDetail';
+import scalePx from '@utils/scalePx';
 
 function EmojList() {
   const [isVisible, setIsVisible] = useState(false);
@@ -83,7 +82,20 @@ function EmojList() {
         numColumns={3}
         horizontal={false}
         onEndReached={fetchMore}
-        ListFooterComponent={() => <Loading />}
+        ListFooterComponent={() =>
+          hasMore ? (
+            <Loading />
+          ) : (
+            <Text
+              style={{
+                textAlign: 'center',
+                height: scalePx(40),
+                lineHeight: scalePx(40),
+              }}>
+              没有更多图片了...
+            </Text>
+          )
+        }
       />
       <ModalEmojDetail
         isVisible={isVisible}

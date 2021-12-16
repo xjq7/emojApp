@@ -1,7 +1,5 @@
 import React, {useState} from 'react';
 import Container from '@components/Container';
-import {RootStackParamList} from '@navigation/Stack';
-import {StackScreenProps} from '@react-navigation/stack';
 import themeMap from '@utils/themeMap';
 import {TabView, TabBar, SceneMap} from 'react-native-tab-view';
 import EmojList from './components/EmojList';
@@ -11,9 +9,7 @@ const renderScene = SceneMap({
   new: () => <EmojList />,
 });
 
-export default function HomeScreen({
-  navigation,
-}: StackScreenProps<RootStackParamList, 'home'>) {
+export default function HomeScreen() {
   const [index, setIndex] = useState(0);
 
   const [routes] = useState([

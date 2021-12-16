@@ -13,6 +13,7 @@
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.12.1",
     "@react-native-community/cameraroll": "^4.1.2",
     "@react-native-community/hooks": "^2.8.1",
     "@react-native-community/viewpager": "^5.0.11",
@@ -36,6 +37,8 @@
     "react-native-tab-view": "^3.1.1",
     "react-native-toast-message": "^2.0.2",
     "react-native-vector-icons": "^9.0.0",
+    "recoil": "^0.5.2",
+    "recoil-nexus": "^0.3.9",
     "rn-fetch-blob": "^0.12.0"
   },
   "devDependencies": {

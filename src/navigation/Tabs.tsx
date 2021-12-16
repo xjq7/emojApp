@@ -5,6 +5,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import Home from '@pages/tab/home';
 import Emoj from '@pages/tab/emoj';
+import Setting from '@pages/tab/setting';
 import themeMap from '@utils/themeMap';
 
 const Tab = createBottomTabNavigator();
@@ -22,12 +23,20 @@ export default function App() {
             );
           } else if (route.name === 'Emoj') {
             return <FontAwesomeIcon name="smile-o" size={size} color={color} />;
+          } else if (route.name === 'Setting') {
+            return (
+              <IoniconsIcon
+                name="ios-settings-outline"
+                size={size}
+                color={color}
+              />
+            );
           }
         },
         tabBarActiveTintColor: themeMap.$Primary,
         tabBarInactiveTintColor: 'gray',
         tabBarLabelStyle: {
-          fontSize: 24,
+          fontSize: 12,
           marginTop: -3,
           marginBottom: 3,
         },
@@ -46,6 +55,14 @@ export default function App() {
         component={Emoj}
         options={{
           tabBarLabel: 'Emoj',
+          headerTitle: '小表情',
+        }}
+      />
+      <Tab.Screen
+        name="Setting"
+        component={Setting}
+        options={{
+          tabBarLabel: '设置',
           headerTitle: '小表情',
         }}
       />
