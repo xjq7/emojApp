@@ -1,4 +1,4 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {FlatList, View, Image, TouchableOpacity, Text} from 'react-native';
 import {Emoj, getEmojList, GetEmojBodyType} from '@services/emoj';
 import {Loading} from '@components/index';
@@ -6,8 +6,10 @@ import styles from './styles';
 import ModalEmojDetail, {ModalData} from '../ModalEmojDetail';
 import scalePx from '@utils/scalePx';
 
-function EmojList(props: {type: GetEmojBodyType}) {
-  const {type} = props;
+function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
+  const {type, name = ''} = props;
+  console.log(name);
+
   const [isVisible, setIsVisible] = useState(false);
   const [modalData, setModalData] = useState<ModalData>();
   const [list, setList] = useState<Emoj[]>([]);
@@ -15,9 +17,19 @@ function EmojList(props: {type: GetEmojBodyType}) {
   const pageInfoRef = useRef({page: 1, pageSize: 30});
   const [hasMore, setHasMore] = useState(true);
 
-  const fetchList = () => {
+  const fetchList = useCallback(() => {
     const {page, pageSize} = pageInfoRef.current;
-    getEmojList({page, pageSize, type}).then(res => {
+    const body: any = {
+      page,
+      pageSize,
+    };
+    if (type) {
+      body.type = type;
+    }
+    if (name) {
+      body.name = name;
+    }
+    getEmojList(body).then(res => {
       const {data} = res;
       const {
         list: dataList = [],
@@ -32,11 +44,16 @@ function EmojList(props: {type: GetEmojBodyType}) {
       pageInfoRef.current = {page, pageSize};
       setList(catList);
     });
-  };
+  }, [type, name]);
+
+  useEffect(() => {
+    pageInfoRef.current = {page: 1, pageSize: 30};
+    setList([]);
+  }, [name]);
 
   useEffect(() => {
     fetchList();
-  }, []);
+  }, [fetchList]);
 
   const hideModal = () => {
     setIsVisible(false);

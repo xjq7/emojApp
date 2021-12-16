@@ -1,12 +1,11 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
-import Modal from '@components/Modal';
+import {View, Text, Image} from 'react-native';
 import CameraRoll from '@react-native-community/cameraroll';
-import Toast from '@components/Toast';
+import {Toast, Divider, Button, Modal, PressView} from '@components/index';
 import RToast from 'react-native-toast-message';
 import styles from './styles';
-
 import {PermissionsAndroid, Platform} from 'react-native';
+import IoniconsIcon from 'react-native-vector-icons/Ionicons';
 
 async function hasAndroidPermission() {
   const permission = PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE;
@@ -21,6 +20,7 @@ async function hasAndroidPermission() {
 }
 
 import RNFS from 'react-native-fs'; //文件处理
+import themeMap from '@utils/themeMap';
 
 const storeLocation = `${RNFS.DocumentDirectoryPath}`;
 
@@ -38,6 +38,35 @@ function ModalEmojDetail(props: Props) {
   const {onClose, isVisible, data} = props;
 
   const url = (data && data.url) || '';
+
+  const handleSave = async () => {
+    if (Platform.OS === 'android' && !(await hasAndroidPermission())) {
+      return;
+    }
+    let pathName = new Date().getTime() + '.png';
+    let downloadDest = `${storeLocation}/${pathName}`;
+    const ret = RNFS.downloadFile({
+      fromUrl: url,
+      toFile: downloadDest,
+    });
+    ret.promise.then(res => {
+      if (res && res.statusCode === 200) {
+        var promise = CameraRoll.save('file://' + downloadDest);
+        promise
+          .then(function () {
+            Toast.show({type: 'success', text1: '保存成功!'});
+          })
+          .catch(function (error) {
+            Toast.show({
+              type: 'error',
+              text1: '保存失败!',
+              text2: JSON.stringify(error.message),
+            });
+          });
+      }
+    });
+  };
+
   return (
     <Modal
       style={{alignItems: 'center'}}
@@ -56,40 +85,15 @@ function ModalEmojDetail(props: Props) {
             }}
             style={styles.image}
           />
-          <TouchableOpacity
-            style={styles.btn}
-            onPress={async () => {
-              if (
-                Platform.OS === 'android' &&
-                !(await hasAndroidPermission())
-              ) {
-                return;
-              }
-              let pathName = new Date().getTime() + '.png';
-              let downloadDest = `${storeLocation}/${pathName}`;
-              const ret = RNFS.downloadFile({
-                fromUrl: url,
-                toFile: downloadDest,
-              });
-              ret.promise.then(res => {
-                if (res && res.statusCode === 200) {
-                  var promise = CameraRoll.save('file://' + downloadDest);
-                  promise
-                    .then(function () {
-                      Toast.show({type: 'success', text1: '保存成功!'});
-                    })
-                    .catch(function (error) {
-                      Toast.show({
-                        type: 'error',
-                        text1: '保存失败!',
-                        text2: JSON.stringify(error.message),
-                      });
-                    });
-                }
-              });
-            }}>
-            <Text style={styles.btnLabel}>保存</Text>
-          </TouchableOpacity>
+          <Divider height={20} />
+          <Button style={styles.btn} title="保存" onPress={handleSave} />
+          <PressView style={styles.close} onPress={onClose}>
+            <IoniconsIcon
+              name="md-close-sharp"
+              color={themeMap.$BlackM}
+              size={30}
+            />
+          </PressView>
         </View>
       )}
       <RToast />

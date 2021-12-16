@@ -5,4 +5,14 @@ import Button from './Button';
 import PressView from './PressView';
 import Divider from './Divider';
 import Loading from './Loading';
-export {Toast, Container, Modal, Button, PressView, Divider, Loading};
+import TextInput from './TextInput';
+export {
+  Toast,
+  Container,
+  Modal,
+  Button,
+  PressView,
+  Divider,
+  Loading,
+  TextInput,
+};

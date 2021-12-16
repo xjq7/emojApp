@@ -4,6 +4,7 @@ import themeMap from '@utils/themeMap';
 import {TabView, TabBar, SceneMap} from 'react-native-tab-view';
 import EmojList from './components/EmojList';
 import {GetEmojBodyType} from '@services/emoj';
+import Search from './components/Search';
 
 const renderScene = SceneMap({
   hot: () => <EmojList type={GetEmojBodyType.hot} />,
@@ -20,6 +21,7 @@ export default function HomeScreen() {
 
   return (
     <Container>
+      <Search />
       <TabView
         renderTabBar={props => (
           <TabBar

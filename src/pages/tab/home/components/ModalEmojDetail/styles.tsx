@@ -6,36 +6,33 @@ interface Style {
   container: ViewStyle;
   image: ImageStyle;
   btn: ViewStyle;
-  btnLabel: TextStyle;
+  close: ViewStyle;
 }
 
 const style: Style = {
   container: {
-    width: 400,
-    height: 400,
+    width: 500,
+    height: 500,
     backgroundColor: themeMap.$White,
     alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 25,
   },
   image: {
-    width: 236,
-    height: 236,
+    width: 286,
+    height: 286,
     marginLeft: 10,
     marginTop: 20,
   },
   btn: {
     width: 180,
-    height: 60,
-    backgroundColor: themeMap.$White,
-    borderRadius: 20,
-    borderWidth: 2,
-    borderColor: themeMap.$Divider,
+  },
+  close: {
+    position: 'absolute',
     justifyContent: 'center',
     alignItems: 'center',
-    marginTop: 20,
-  },
-  btnLabel: {
-    fontSize: 24,
-    color: themeMap.$BlackS,
+    right: 10,
+    top: 10,
   },
 };
 

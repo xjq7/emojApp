@@ -15,7 +15,7 @@ interface Style {
 
 const style: Style = {
   textSolid: {
-    color: themeMap.$BlackS,
+    color: themeMap.$White,
   },
   textOutline: {
     color: themeMap.$BlackS,
@@ -30,6 +30,7 @@ const style: Style = {
     height: 88,
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     borderRadius: 44,
     paddingHorizontal: 44,
     paddingVertical: 0,

@@ -3,6 +3,7 @@ import Tab from './Tabs';
 import Setting from '@pages/tab/setting';
 import Launch from '@pages/launch';
 import Login from '@pages/login';
+import EmojSearch from '@pages/emojSearch';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -12,6 +13,7 @@ export type RootStackParamList = {
   setting: undefined;
   login: undefined;
   emoj: undefined;
+  emojSearch: undefined;
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
@@ -19,15 +21,24 @@ const Stack = createStackNavigator<RootStackParamList>();
 const StackScreen = () => {
   return (
     <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-        initialRouteName="launch">
-        <Stack.Screen name="launch" component={Launch} />
-        <Stack.Screen name="home" component={Tab} />
+      <Stack.Navigator screenOptions={{}} initialRouteName="launch">
+        <Stack.Screen
+          name="launch"
+          options={{headerShown: false}}
+          component={Launch}
+        />
+        <Stack.Screen
+          name="home"
+          options={{headerShown: false}}
+          component={Tab}
+        />
         <Stack.Screen name="setting" component={Setting} />
         <Stack.Screen name="login" component={Login} />
+        <Stack.Screen
+          name="emojSearch"
+          options={{headerTitle: '搜索'}}
+          component={EmojSearch}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
