@@ -16,6 +16,7 @@ function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
 
   const pageInfoRef = useRef({page: 1, pageSize: 30});
   const [hasMore, setHasMore] = useState(true);
+  const fetchMoreRef = useRef(true);
 
   const fetchList = useCallback(() => {
     const {page, pageSize} = pageInfoRef.current;
@@ -29,26 +30,30 @@ function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
     if (name) {
       body.name = name;
     }
-    getEmojList(body).then(res => {
-      const {data} = res;
-      const {
-        list: dataList = [],
-        page = 1,
-        pageSize = 30,
-        total = 0,
-      } = data || {};
-      const catList = [...list, ...dataList];
-      if (catList.length >= total) {
-        setHasMore(false);
-      }
-      pageInfoRef.current = {page, pageSize};
-      setList(catList);
-    });
+    getEmojList(body)
+      .then(res => {
+        const {data} = res;
+        const {
+          list: dataList = [],
+          page = 1,
+          pageSize = 30,
+          total = 0,
+        } = data || {};
+        const catList = [...list, ...dataList];
+        if (catList.length >= total) {
+          setHasMore(false);
+        }
+        pageInfoRef.current = {page, pageSize};
+        setList(fetchMoreRef.current ? catList : dataList);
+      })
+      .finally(() => {
+        fetchMoreRef.current = true;
+      });
   }, [type, name]);
 
   useEffect(() => {
     pageInfoRef.current = {page: 1, pageSize: 30};
-    setList([]);
+    fetchMoreRef.current = false;
   }, [name]);
 
   useEffect(() => {
