@@ -6,7 +6,8 @@ import InputItem from './components/InputItem';
 export default function Login() {
   return (
     <Container style={styles.container}>
-      <InputItem placeholder="aaaa" />
+      <InputItem placeholder="请输入账号" />
+      <InputItem placeholder="请输入密码" />
     </Container>
   );
 }
