@@ -11,9 +11,15 @@ export interface Emoj {
   created_at?: string;
 }
 
+export enum GetEmojBodyType {
+  hot = 'hot',
+  new = 'new',
+}
+
 interface GetEmojBody extends PageInfo {
   name?: string;
   group_id?: number;
+  type: GetEmojBodyType;
 }
 
 export function getEmojList(body: GetEmojBody): Promise<ResponseList<Emoj>> {

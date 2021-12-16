@@ -79,8 +79,6 @@ function ModalEmojDetail(props: Props) {
                       Toast.show({type: 'success', text1: '保存成功!'});
                     })
                     .catch(function (error) {
-                      console.log(error);
-
                       Toast.show({
                         type: 'error',
                         text1: '保存失败!',

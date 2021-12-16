@@ -1,12 +1,13 @@
 import React, {useState, useEffect, useRef} from 'react';
 import {FlatList, View, Image, TouchableOpacity, Text} from 'react-native';
-import {Emoj, getEmojList} from '@services/emoj';
+import {Emoj, getEmojList, GetEmojBodyType} from '@services/emoj';
 import {Loading} from '@components/index';
 import styles from './styles';
 import ModalEmojDetail, {ModalData} from '../ModalEmojDetail';
 import scalePx from '@utils/scalePx';
 
-function EmojList() {
+function EmojList(props: {type: GetEmojBodyType}) {
+  const {type} = props;
   const [isVisible, setIsVisible] = useState(false);
   const [modalData, setModalData] = useState<ModalData>();
   const [list, setList] = useState<Emoj[]>([]);
@@ -16,7 +17,7 @@ function EmojList() {
 
   const fetchList = () => {
     const {page, pageSize} = pageInfoRef.current;
-    getEmojList({page, pageSize}).then(res => {
+    getEmojList({page, pageSize, type}).then(res => {
       const {data} = res;
       const {
         list: dataList = [],

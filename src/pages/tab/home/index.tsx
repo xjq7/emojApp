@@ -3,10 +3,11 @@ import Container from '@components/Container';
 import themeMap from '@utils/themeMap';
 import {TabView, TabBar, SceneMap} from 'react-native-tab-view';
 import EmojList from './components/EmojList';
+import {GetEmojBodyType} from '@services/emoj';
 
 const renderScene = SceneMap({
-  hot: () => <EmojList />,
-  new: () => <EmojList />,
+  hot: () => <EmojList type={GetEmojBodyType.hot} />,
+  new: () => <EmojList type={GetEmojBodyType.new} />,
 });
 
 export default function HomeScreen() {

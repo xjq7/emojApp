@@ -3,11 +3,10 @@ import {Toast} from '@components/index';
 import Config from '../config/config';
 import {getRecoil, setRecoil} from 'recoil-nexus';
 import {tokenAtom} from '@atom/user';
-console.log(Config);
 
 const instance = Axios.create({
-  // baseURL: 'http://192.168.1.106:39001/v1/c',
-  baseURL: Config.API_URL + '/v1/c',
+  baseURL: 'http://192.168.1.106:39001/v1/c',
+  // baseURL: Config.API_URL + '/v1/c',
   timeout: 5000,
   headers: {
     Accept: 'application/json',

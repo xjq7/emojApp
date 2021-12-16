@@ -28,7 +28,6 @@ function Index() {
     storage
       .getItem('token')
       .then(res => {
-        console.log(res);
         if (!res) {
           return res;
         }
