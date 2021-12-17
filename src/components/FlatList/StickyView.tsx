@@ -1,10 +1,23 @@
-import React, {useState, forwardRef, useImperativeHandle} from 'react';
-import {Animated} from 'react-native';
+import React, {
+  useState,
+  forwardRef,
+  useImperativeHandle,
+  ForwardedRef,
+} from 'react';
+import {Animated, LayoutChangeEvent, ViewProps} from 'react-native';
 
-function StickyView({children, onLayout, scrollY, nextHeaderLayoutY}, ref) {
+interface Props extends Animated.AnimatedProps<ViewProps> {
+  scrollY: Animated.Value;
+  nextHeaderLayoutY: Animated.Value;
+}
+
+function StickyView(
+  {children, onLayout, scrollY, nextHeaderLayoutY}: Props,
+  ref: ForwardedRef<any>,
+) {
   const [measured, setMeasured] = useState(false);
-  const [layoutY, setLayoutY] = useState();
-  const [layoutHeight, setLayoutHeight] = useState();
+  const [layoutY, setLayoutY] = useState(0);
+  const [layoutHeight, setLayoutHeight] = useState(0);
   const [nextLayoutY, setNextLayoutY] = useState(nextHeaderLayoutY);
 
   const inputRange = [-1, 0];
@@ -14,6 +27,7 @@ function StickyView({children, onLayout, scrollY, nextHeaderLayoutY}, ref) {
     inputRange.push(layoutY);
     outputRange.push(0);
 
+    // @ts-ignore
     const collisionPoint = (nextLayoutY || 0) - layoutHeight;
     if (collisionPoint >= layoutY) {
       inputRange.push(collisionPoint, collisionPoint + 1);
@@ -30,16 +44,16 @@ function StickyView({children, onLayout, scrollY, nextHeaderLayoutY}, ref) {
   });
 
   useImperativeHandle(ref, () => ({
-    setNextHeaderY: y => {
+    setNextHeaderY: (y: Animated.Value) => {
       setNextLayoutY(y);
     },
   }));
 
-  const _onLayout = event => {
+  const _onLayout = (event: LayoutChangeEvent) => {
     setMeasured(true);
     setLayoutY(event.nativeEvent.layout.y);
     setLayoutHeight(event.nativeEvent.layout.height);
-    onLayout(event);
+    onLayout && onLayout(event);
   };
 
   return (

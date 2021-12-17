@@ -1,4 +1,4 @@
-import {ImageStyle, StyleSheet, TextStyle, ViewStyle} from 'react-native';
+import {ImageStyle, StyleSheet, ViewStyle} from 'react-native';
 import scaleStyle from '@utils/scaleStyle';
 import themeMap from '@utils/themeMap';
 

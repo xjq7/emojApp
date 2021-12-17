@@ -1,5 +1,3 @@
-import {isAndroid} from '@utils/platform';
-import A from './index.android';
-import I from './index.ios';
+import {RefreshControl} from 'react-native';
 
-export default isAndroid ? A : I;
+export default RefreshControl;

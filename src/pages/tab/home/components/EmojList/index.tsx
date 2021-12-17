@@ -1,63 +1,53 @@
-import React, {useState, useEffect, useRef, useCallback} from 'react';
-import {FlatList, View, Image, TouchableOpacity, Text} from 'react-native';
+import React, {useState, useEffect, useCallback} from 'react';
+import {View, Image, TouchableOpacity} from 'react-native';
 import {Emoj, getEmojList, GetEmojBodyType} from '@services/emoj';
 import {Loading} from '@components/index';
+import FlatList from '@components/FlatList';
 import styles from './styles';
 import ModalEmojDetail, {ModalData} from '../ModalEmojDetail';
-import scalePx from '@utils/scalePx';
+import useInfinityList from '@hooks/useInfinityList';
 
 function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
   const {type, name = ''} = props;
 
   const [isVisible, setIsVisible] = useState(false);
   const [modalData, setModalData] = useState<ModalData>();
-  const [list, setList] = useState<Emoj[]>([]);
 
-  const pageInfoRef = useRef({page: 1, pageSize: 30});
-  const [hasMore, setHasMore] = useState(true);
-  const fetchMoreRef = useRef(true);
+  const fetchList = useCallback(
+    o => {
+      const body: any = {
+        ...o.body,
+      };
 
-  const fetchList = useCallback(() => {
-    const {page, pageSize} = pageInfoRef.current;
-    const body: any = {
-      page,
-      pageSize,
-    };
-    if (type) {
-      body.type = type;
-    }
-    if (name) {
-      body.name = name;
-    }
-    getEmojList(body)
-      .then(res => {
+      if (type) {
+        body.type = type;
+      }
+      if (name) {
+        body.name = name;
+      }
+      console.log('body', body);
+      return getEmojList(body).then(res => {
         const {data} = res;
-        const {
-          list: dataList = [],
-          page = 1,
-          pageSize = 30,
-          total = 0,
-        } = data || {};
-        const catList = [...list, ...dataList];
-        if (catList.length >= total) {
-          setHasMore(false);
-        }
-        pageInfoRef.current = {page, pageSize};
-        setList(fetchMoreRef.current ? catList : dataList);
-      })
-      .finally(() => {
-        fetchMoreRef.current = true;
+        const {list: dataList = []} = data || {};
+        return dataList;
       });
-  }, [type, name]);
+    },
+    [type, name],
+  );
+
+  const [
+    array,
+    isEnd,
+    isRefresh,
+    isLoadMore,
+    onEndReached,
+    onRefresh,
+    onRefreshForce,
+  ] = useInfinityList(fetchList, {pageSize: 30});
 
   useEffect(() => {
-    pageInfoRef.current = {page: 1, pageSize: 30};
-    fetchMoreRef.current = false;
+    onRefreshForce(1);
   }, [name]);
-
-  useEffect(() => {
-    fetchList();
-  }, [fetchList]);
 
   const hideModal = () => {
     setIsVisible(false);
@@ -86,38 +76,21 @@ function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
     );
   };
 
-  const fetchMore = () => {
-    if (!hasMore) {
-      return;
-    }
-    pageInfoRef.current = {page: pageInfoRef.current.page + 1, pageSize: 30};
-
-    fetchList();
-  };
+  if (!array) {
+    return <Loading />;
+  }
 
   return (
     <>
       <FlatList
+        data={Array.isArray(array) ? array : []}
         keyExtractor={item => String(item.id)}
-        data={list}
         renderItem={renderItem}
         numColumns={3}
         horizontal={false}
-        onEndReached={fetchMore}
-        ListFooterComponent={() =>
-          hasMore ? (
-            <Loading />
-          ) : (
-            <Text
-              style={{
-                textAlign: 'center',
-                height: scalePx(40),
-                lineHeight: scalePx(40),
-              }}>
-              没有更多图片了...
-            </Text>
-          )
-        }
+        refreshing={isRefresh}
+        onRefresh={onRefresh}
+        onEndReached={onEndReached}
       />
       <ModalEmojDetail
         isVisible={isVisible}

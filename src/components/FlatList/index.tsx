@@ -1,6 +1,5 @@
-import React, {Fragment} from 'react';
-import PropTypes from 'prop-types';
-import {Text, Animated} from 'react-native';
+import React, {ForwardedRef, Fragment, RefObject} from 'react';
+import {Text, Animated, LayoutChangeEvent, FlatListProps} from 'react-native';
 import Loading from '../Loading';
 import Divider from '../Divider';
 import StatusView, {StateStatus} from '../StatusView';
@@ -10,23 +9,23 @@ import RefreshControl from '../RefreshControl';
 
 const FlatList = Animated.FlatList;
 
-/**
- * data =[{data:[],header:{}}]
- *
- */
+interface Props extends FlatListProps<any> {
+  isEnd?: boolean;
+  stickyHeaderIndicesPro?: number[];
+}
 
 const Component = (
   {
     isEnd,
     data,
-    stickyHeaderIndicesPro,
+    stickyHeaderIndicesPro = [],
     ListHeaderComponent,
     refreshing,
     onRefresh,
     onScroll,
     ...restProps
-  },
-  ref,
+  }: Props,
+  ref: ForwardedRef<any>,
 ) => {
   const scrollY = new Animated.Value(0);
   const _headerLayoutYs = new Map();
@@ -60,12 +59,12 @@ const Component = (
     }
   };
 
-  const _getKeyForIndex = (index, childArray) => {
+  const _getKeyForIndex = (index: number, childArray: any) => {
     const child = childArray[index];
     return child && child.key;
   };
 
-  const _setStickyHeaderRef = (key, ref) => {
+  const _setStickyHeaderRef = (key: string, ref: RefObject<any>) => {
     if (ref) {
       _stickyHeaderRefs.set(key, ref);
     } else {
@@ -73,7 +72,12 @@ const Component = (
     }
   };
 
-  const _onLayout = (index, event, key, childArray) => {
+  const _onLayout = (
+    index: number,
+    event: LayoutChangeEvent,
+    key: string,
+    childArray: any,
+  ) => {
     const layoutY = event.nativeEvent.layout.y;
     _headerLayoutYs.set(key, layoutY);
     const indexOfIndex = stickyHeaderIndicesPro.indexOf(index);
@@ -89,7 +93,7 @@ const Component = (
   };
 
   const renderHeader = () => {
-    let element = ListHeaderComponent;
+    let ele = ListHeaderComponent;
     if (
       ListHeaderComponent &&
       stickyHeaderIndicesPro != null &&
@@ -97,17 +101,17 @@ const Component = (
     ) {
       const ListHeader = React.isValidElement(ListHeaderComponent)
         ? ListHeaderComponent
-        : ListHeaderComponent();
+        : (ListHeaderComponent as any)();
       if (ListHeader.type === Fragment) {
         const childArray = React.Children.toArray(ListHeader.props.children);
-        element = (
+        ele = (
           <Fragment>
             {childArray.map((child, index) => {
               const indexOfIndex = child
                 ? stickyHeaderIndicesPro.indexOf(index)
                 : -1;
               if (indexOfIndex > -1) {
-                const key = child.key;
+                const key = (child as any).key;
                 const nextIndex = stickyHeaderIndicesPro[indexOfIndex + 1];
                 return (
                   <StickyView
@@ -129,7 +133,7 @@ const Component = (
         );
       }
     }
-    return element;
+    return ele;
   };
 
   const renderDivider = () => {
@@ -157,8 +161,10 @@ const Component = (
       ListHeaderComponent={renderHeader()}
       showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false}
+      // @ts-ignore
       refreshControl={
         onRefresh && (
+          // @ts-ignore
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         )
       }
@@ -169,17 +175,5 @@ const Component = (
 };
 
 const RefComponent = React.forwardRef(Component);
-
-RefComponent.propTypes = {
-  isEnd: PropTypes.bool,
-  stickyHeaderIndicesPro: PropTypes.arrayOf(PropTypes.number), // 头部sticky,同stickyHeaderIndices
-};
-
-RefComponent.defaultProps = {
-  onEndReachedThreshold: 0.1,
-  keyExtractor: (o, i) => i.toString(),
-  initialNumToRender: 10,
-  isEnd: true,
-};
 
 export default RefComponent;

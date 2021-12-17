@@ -14,6 +14,7 @@ module.exports = {
           '@atom': './src/atom',
           '@lib': './src/lib',
           '@assets': './src/assets',
+          '@hooks': './src/hooks',
         },
       },
     ],
