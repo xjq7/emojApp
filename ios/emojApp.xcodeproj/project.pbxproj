@@ -483,6 +483,8 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6JYT2VT893;
 				ENABLE_BITCODE = NO;
@@ -500,6 +502,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.emojApp;
 				PRODUCT_NAME = emojApp;
+				PROVISIONING_PROFILE_SPECIFIER = emojTest;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -512,6 +515,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 6JYT2VT893;
 				GCC_NO_COMMON_BLOCKS = NO;
@@ -528,6 +532,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = org.reactjs.native.emojApp;
 				PRODUCT_NAME = emojApp;
+				PROVISIONING_PROFILE_SPECIFIER = emojTest;
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
