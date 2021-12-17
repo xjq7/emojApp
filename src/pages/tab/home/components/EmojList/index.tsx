@@ -8,7 +8,6 @@ import scalePx from '@utils/scalePx';
 
 function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
   const {type, name = ''} = props;
-  console.log(name);
 
   const [isVisible, setIsVisible] = useState(false);
   const [modalData, setModalData] = useState<ModalData>();

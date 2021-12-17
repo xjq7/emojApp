@@ -8,8 +8,6 @@ function EmojSearch() {
   const [name, setName] = useState('');
 
   const handleNameChange = (val: string) => {
-    console.log(val);
-
     setName(val);
   };
 

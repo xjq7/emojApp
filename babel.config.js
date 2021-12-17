@@ -13,6 +13,7 @@ module.exports = {
           '@services': './src/services',
           '@atom': './src/atom',
           '@lib': './src/lib',
+          '@assets': './src/assets',
         },
       },
     ],
