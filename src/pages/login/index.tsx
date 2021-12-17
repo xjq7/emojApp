@@ -20,6 +20,8 @@ export default function Login({
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
+    console.log(account, password);
+
     if (!account || !password) {
       Toast.show({type: 'error', text1: '账号或密码不能为空!'});
       return;
@@ -40,6 +42,7 @@ export default function Login({
         navigation.reset({index: 0, routes: [{name: 'home'}]});
       }
     } catch (error) {
+      console.log(error);
     } finally {
       setLoading(false);
     }
