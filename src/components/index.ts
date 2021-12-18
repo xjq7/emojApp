@@ -6,6 +6,8 @@ import PressView from './PressView';
 import Divider from './Divider';
 import Loading from './Loading';
 import TextInput from './TextInput';
+import Wrap from './Wrap';
+import StatusView from './StatusView';
 export {
   Toast,
   Container,
@@ -15,4 +17,6 @@ export {
   Divider,
   Loading,
   TextInput,
+  Wrap,
+  StatusView,
 };

@@ -20,13 +20,21 @@ const imgError = require('@assets/image/error.png');
 interface Props extends ViewProps {
   button?: any;
   status: StateStatus;
-  tips: string;
+  tips?: string;
   LoadComponent?: any;
   onPress?(): void;
 }
 
 function StatusView(props: Props) {
-  const {status, button, tips, style, LoadComponent, onPress, children} = props;
+  const {
+    status,
+    button,
+    tips = '',
+    style,
+    LoadComponent,
+    onPress,
+    children,
+  } = props;
   const renderButton = () => {
     if (typeof button === 'string') {
       return (

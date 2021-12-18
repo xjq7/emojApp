@@ -3,7 +3,9 @@ import scaleStyle from '@utils/scaleStyle';
 import themeMap from '@utils/themeMap';
 
 interface Style {
-  text: TextStyle;
+  textM: TextStyle;
+  textL: TextStyle;
+  textS: TextStyle;
   textSolid: TextStyle;
   textOutline: TextStyle;
   textDisable: TextStyle;
@@ -23,16 +25,22 @@ const style: Style = {
   textDisable: {
     color: themeMap.$White,
   },
-  text: {
+  textL: {
+    fontSize: 36,
+  },
+  textM: {
     fontSize: 32,
   },
+  textS: {
+    fontSize: 28,
+  },
   button: {
-    height: 88,
+    height: 80,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 44,
-    paddingHorizontal: 44,
+    paddingHorizontal: 32,
     paddingVertical: 0,
   },
   buttonSolid: {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import {Text, TextStyle, View, ViewProps} from 'react-native';
 import PressView from '../PressView';
 import Loading from '../Loading';
@@ -13,6 +13,7 @@ interface Props extends ViewProps {
   loading?: boolean;
   type?: 'Solid' | 'Outline';
   title: string;
+  size?: 'small' | 'medium' | 'large';
   textStyle?: TextStyle;
   onPress?(): void;
 }
@@ -22,6 +23,7 @@ function Component(props: Props) {
     disable = false,
     loading = false,
     type = 'Solid',
+    size = 'medium',
     title,
     style,
     textStyle,
@@ -33,11 +35,33 @@ function Component(props: Props) {
   };
   const isDisable = disable || loading;
 
+  const stylesText = useMemo(() => {
+    switch (size) {
+      case 'small':
+        return styles.textS;
+      case 'large':
+        return styles.textL;
+      default:
+        return styles.textM;
+    }
+  }, [size]);
+
+  const stylesView = useMemo(() => {
+    switch (size) {
+      case 'small':
+        return styles.textS;
+      case 'large':
+        return styles.textL;
+      default:
+        return styles.textM;
+    }
+  }, [size]);
+
   const renderTitle = () => {
     return typeof title === 'string' ? (
       <Text
         style={[
-          styles.text,
+          stylesText,
           type === Solid && styles.textSolid,
           type === Outline && styles.textOutline,
           isDisable && styles.textDisable,
@@ -48,7 +72,7 @@ function Component(props: Props) {
     ) : (
       <View
         style={[
-          styles.text,
+          stylesText,
           type === Solid && styles.textSolid,
           type === Outline && styles.textOutline,
           isDisable && styles.textDisable,
