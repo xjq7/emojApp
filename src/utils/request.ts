@@ -2,7 +2,7 @@ import Axios from 'axios';
 import {Toast} from '@components/index';
 import Config from '../config/config';
 import {getRecoil, setRecoil} from 'recoil-nexus';
-import {tokenAtom} from '@atom/user';
+import {tokenAtom, userInfoAtom} from '@atom/user';
 import {navigationRef} from '@navigation/utils';
 import storage from '@lib/storage';
 console.log(Config);
@@ -43,7 +43,9 @@ instance.interceptors.response.use(
     if (status === 401) {
       if (navigationRef.getCurrentRoute()?.name !== 'login') {
         setRecoil(tokenAtom, {});
+        setRecoil(userInfoAtom, {});
         storage.removeItem('token');
+        storage.removeItem('userInfo');
         Toast.show({type: 'error', text1: '登录失效，请重新登录'});
         navigationRef.reset({index: 0, routes: [{name: 'login' as never}]});
       }

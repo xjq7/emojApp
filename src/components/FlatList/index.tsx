@@ -9,7 +9,7 @@ import RefreshControl from '../RefreshControl';
 
 const FlatList = Animated.FlatList;
 
-interface Props extends FlatListProps<any> {
+export interface Props extends FlatListProps<any> {
   isEnd?: boolean;
   stickyHeaderIndicesPro?: number[];
 }

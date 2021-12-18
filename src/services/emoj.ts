@@ -5,6 +5,8 @@ export interface Emoj {
   id?: number;
   name?: string;
   desc?: string;
+  like?: number;
+  visit?: number;
   url?: string;
   group_id?: number;
   group_name?: string;
@@ -22,6 +24,14 @@ export interface GetEmojBody extends PageInfo {
   type: GetEmojBodyType;
 }
 
+export interface EmojGroup {
+  id?: number;
+  name?: string;
+  desc?: string;
+  created_at?: string;
+  emoj_list?: Emoj[];
+}
+
 export function getEmojList(body: GetEmojBody): Promise<ResponseList<Emoj>> {
   return request.post('/emoj/list', body);
 }
@@ -30,11 +40,15 @@ export function updateEmoj(body: Emoj): Promise<Response> {
   return request.post('/emoj/update', body);
 }
 
-export interface EmojGroup {
-  id?: number;
-  name?: string;
-  desc?: string;
-  created_at?: string;
+export interface EmojDetail extends Emoj {
+  isLike: boolean;
+}
+
+export function getEmojDetail(body: {
+  id: number;
+  user_id: number;
+}): Promise<Response<{emoj_list: EmojDetail[]; emoj_group_info: EmojGroup}>> {
+  return request.post('/emoj/detail', body);
 }
 
 export interface GetEmojListBody extends PageInfo {
@@ -57,4 +71,14 @@ export function deleteEmojGroup(body: EmojGroup): Promise<Response> {
 
 export function deleteEmoj(body: {id: number}): Promise<Response> {
   return request.post('/emoj/delete', body);
+}
+
+interface UpdateUserEmojRelation {
+  like: number;
+  user_id: number;
+  emoj_id: number;
+}
+
+export function updateUserEmojRelation(body: UpdateUserEmojRelation) {
+  return request.post('/emoj/update-user-emoj-relation', body);
 }

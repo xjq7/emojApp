@@ -2,13 +2,14 @@ import {useCallback, useEffect, useState} from 'react';
 import {StatusBar} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {isAndroid} from '@utils/platform';
-import {tokenAtom} from '@atom/user';
+import {tokenAtom, userInfoAtom} from '@atom/user';
 import {useRecoilState} from 'recoil';
 import storage from '@lib/storage';
 
 function Index() {
   const navigation = useNavigation();
-  const [tokenObj, setTokenObj] = useRecoilState(tokenAtom);
+  const [, setTokenObj] = useRecoilState(tokenAtom);
+  const [, setUserInfo] = useRecoilState(userInfoAtom);
 
   const goNextPage = async () => {
     navigation.reset({index: 0, routes: [{name: 'home' as never}]});
@@ -19,9 +20,13 @@ function Index() {
   };
 
   const initRequest = useCallback(async () => {
-    const res = await storage.getItem('token');
-    if (res) {
-      setTokenObj(JSON.parse(res));
+    const tokenObj = await storage.getItem('token');
+    const userInfo = await storage.getItem('userInfo');
+    if (tokenObj) {
+      setTokenObj(JSON.parse(tokenObj));
+    }
+    if (userInfo) {
+      setUserInfo(JSON.parse(userInfo));
     }
     goNextPage();
     hideSplash();

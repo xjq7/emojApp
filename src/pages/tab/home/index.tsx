@@ -9,6 +9,7 @@ import Search from './components/Search';
 const renderScene = SceneMap({
   hot: () => <EmojList type={GetEmojBodyType.hot} />,
   new: () => <EmojList type={GetEmojBodyType.new} />,
+  group: () => <EmojList type={GetEmojBodyType.new} />,
 });
 
 export default function HomeScreen() {
@@ -17,6 +18,7 @@ export default function HomeScreen() {
   const [routes] = useState([
     {key: 'hot', title: '热门'},
     {key: 'new', title: '最新'},
+    {key: 'group', title: '表情包'},
   ]);
 
   return (

@@ -37,6 +37,7 @@ export default function Login({
         const expires = Date.now() + expireDays * 24 * 60 * 60 * 1000;
         storage.setItem('token', {token, expires});
         setToken({token, expires});
+        storage.setItem('userInfo', userInfo);
         setUserinfo(userInfo);
         Toast.show({type: 'success', text1: '登录成功!'});
         navigation.reset({index: 0, routes: [{name: 'home'}]});

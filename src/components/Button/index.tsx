@@ -12,7 +12,7 @@ interface Props extends ViewProps {
   disable?: boolean;
   loading?: boolean;
   type?: 'Solid' | 'Outline';
-  title: string;
+  title: string | Element;
   size?: 'small' | 'medium' | 'large';
   textStyle?: TextStyle;
   onPress?(): void;

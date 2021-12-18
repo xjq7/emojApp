@@ -12,6 +12,7 @@ export enum StateStatus {
   StateError,
   StateEmpty,
   StateLoad,
+  StateFinish,
 }
 
 const imgEmpty = require('@assets/image/empty.png');
@@ -90,6 +91,10 @@ function StatusView(props: Props) {
   const renderChild = () => {
     return <>{children}</>;
   };
+
+  if (status === StateStatus.StateFinish) {
+    return renderChild();
+  }
 
   let view = renderChild();
   if (status === StateStatus.StateEmpty) {

@@ -1,0 +1,232 @@
+import React, {useCallback, useEffect, useMemo, useState} from 'react';
+import {Text, Image, View} from 'react-native';
+import {
+  Button,
+  Container,
+  Divider,
+  PressView,
+  StatusView,
+  Wrap,
+  Toast,
+} from '@components/index';
+import {StateStatus} from '@components/StatusView';
+import {RouteProp, useRoute} from '@react-navigation/native';
+import {
+  getEmojDetail,
+  EmojDetail,
+  EmojGroup,
+  updateUserEmojRelation,
+} from '@services/emoj';
+import {RootStackParamList} from '@navigation/Stack';
+import AntDesignIcon from 'react-native-vector-icons/AntDesign';
+import MaterialCommunityIconsIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import IoniconsIcon from 'react-native-vector-icons/Ionicons';
+import styles from './styles';
+import themeMap from '@utils/themeMap';
+import scalePx from '@utils/scalePx';
+import saveImage from '@utils/saveImage';
+import {useRecoilValue} from 'recoil';
+import {userInfoAtom} from '@atom/user';
+
+export function EmojItem({
+  item,
+  onPress,
+}: {
+  item: EmojDetail;
+  onPress?(): void;
+}) {
+  const {url, id, like, visit} = item;
+
+  return (
+    <PressView style={styles.item} key={id} onPress={onPress}>
+      <Image
+        style={styles.item_image}
+        source={{uri: url?.replace('https://', 'http://')}}
+      />
+      <Wrap style={styles.data_wrap} row="center">
+        <Wrap flex="row">
+          <AntDesignIcon
+            name="eye"
+            color={themeMap.$Primary}
+            size={scalePx(32)}
+          />
+          <Text style={styles.data_label}>{visit}</Text>
+        </Wrap>
+        <Wrap style={styles.like_wrap} flex="row">
+          <AntDesignIcon
+            name="heart"
+            color={themeMap.$Primary}
+            size={scalePx(24)}
+          />
+          <Text style={styles.data_label}>{like}</Text>
+        </Wrap>
+      </Wrap>
+    </PressView>
+  );
+}
+
+function EmojDetailC() {
+  const {params} = useRoute<RouteProp<RootStackParamList, 'emojDetail'>>();
+
+  const {id} = params || {};
+
+  const userInfo = useRecoilValue(userInfoAtom);
+
+  const [loading, setLoading] = useState(true);
+  const [emoj, setEmoj] = useState<EmojDetail>();
+  const [emojList, setEmojList] = useState<EmojDetail[]>([]);
+  const [emojGroup, setEmojGroup] = useState<EmojGroup>();
+
+  const [saveImageLoading, setSaveImageLoading] = useState(false);
+  const [updateRelationLoading, setUpdateRelationLoading] = useState(false);
+
+  const islike = useMemo(() => emoj && emoj?.isLike, [emoj]);
+
+  const fetchData = useCallback(async () => {
+    getEmojDetail({id, user_id: userInfo.id as number}).then(res => {
+      const {data} = res;
+      let {emoj_list = [], emoj_group_info} = data || {};
+      emoj_list = emoj_list.map((item: EmojDetail) => ({
+        ...item,
+        url: item.url?.replace('https://', 'http://'),
+      }));
+      setEmojGroup(emoj_group_info);
+      setEmojList(emoj_list || []);
+      setEmoj(emoj_list.find((item: EmojDetail) => item.id === id));
+      setLoading(false);
+    });
+  }, [id, userInfo]);
+
+  useEffect(() => {
+    fetchData();
+  }, [fetchData]);
+
+  const refresh = async () => {
+    await fetchData();
+  };
+
+  const handleLike = async () => {
+    if (!(emoj && emoj.id)) {
+      return;
+    }
+    if (!(userInfo && userInfo.id)) {
+      return;
+    }
+
+    setUpdateRelationLoading(true);
+    try {
+      await updateUserEmojRelation({
+        user_id: userInfo.id,
+        emoj_id: emoj.id,
+        like: islike ? 0 : 1,
+      });
+      Toast.show({
+        type: 'success',
+        text1: (islike ? '取消点赞' : '点赞') + '成功!',
+      });
+      refresh();
+    } catch (error) {
+    } finally {
+      setUpdateRelationLoading(false);
+    }
+  };
+
+  const handleSaveImage = async () => {
+    if (!emoj) {
+      return;
+    }
+    setSaveImageLoading(true);
+    try {
+      await saveImage(emoj?.url);
+      Toast.show({type: 'success', text1: '表情保存成功!'});
+    } catch (error: any) {
+      Toast.show({type: 'error', text1: '表情保存失败!', text2: error.message});
+    } finally {
+      setSaveImageLoading(false);
+    }
+  };
+
+  const renderItem = ({item}: {item: EmojDetail}) => {
+    const {url, id, like, visit} = item;
+
+    return (
+      <PressView
+        style={styles.item}
+        key={id}
+        onPress={() => {
+          setEmoj(item);
+        }}>
+        <Image style={styles.item_image} source={{uri: url}} />
+        <Wrap style={styles.data_wrap} row="center">
+          <Wrap flex="row">
+            <AntDesignIcon
+              name="eye"
+              color={themeMap.$Primary}
+              size={scalePx(32)}
+            />
+            <Text style={styles.data_label}>{visit}</Text>
+          </Wrap>
+          <Wrap style={styles.like_wrap} flex="row">
+            <AntDesignIcon
+              name="heart"
+              color={themeMap.$Primary}
+              size={scalePx(24)}
+            />
+            <Text style={styles.data_label}>{like}</Text>
+          </Wrap>
+        </Wrap>
+      </PressView>
+    );
+  };
+
+  if (loading) {
+    return <StatusView tips="加载中..." status={StateStatus.StateLoad} />;
+  }
+
+  return (
+    <Container style={{backgroundColor: themeMap.$White}}>
+      <Wrap style={styles.header} col="center" row="center">
+        <Image style={styles.logo} source={{uri: emoj?.url}} />
+        <Wrap style={styles.header_btn_wrap} flex="col" row="center">
+          <Button size="small" title="发送到微信" />
+          <Divider height={30} />
+          <Wrap>
+            <PressView
+              style={styles.download_wrap}
+              disable={updateRelationLoading}
+              onPress={handleLike}>
+              <IoniconsIcon
+                name={islike ? 'md-heart-sharp' : 'md-heart-outline'}
+                size={scalePx(50)}
+                color={themeMap.$White}
+              />
+            </PressView>
+            <PressView
+              disable={saveImageLoading}
+              style={styles.download_wrap}
+              onPress={handleSaveImage}>
+              <MaterialCommunityIconsIcon
+                name="download-circle-outline"
+                size={scalePx(58)}
+                color={themeMap.$White}
+              />
+            </PressView>
+          </Wrap>
+        </Wrap>
+      </Wrap>
+      <View style={styles.image_wrap}>
+        {emojList.map((item: EmojDetail) => {
+          return (
+            <EmojItem
+              item={item}
+              onPress={() => {
+                setEmoj(item);
+              }}
+            />
+          );
+        })}
+      </View>
+    </Container>
+  );
+}
+export default EmojDetailC;
