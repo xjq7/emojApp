@@ -3,6 +3,8 @@ import {Toast} from '@components/index';
 import Config from '../config/config';
 import {getRecoil, setRecoil} from 'recoil-nexus';
 import {tokenAtom} from '@atom/user';
+import {navigationRef} from '@navigation/utils';
+import storage from '@lib/storage';
 console.log(Config);
 
 const instance = Axios.create({
@@ -18,7 +20,7 @@ instance.interceptors.request.use(
   (config: any) => {
     const newConfig = {...config};
     const {token = ''} = getRecoil(tokenAtom) || {};
-    newConfig.headers.Authorization = 'Bearer ' + token;
+    newConfig.headers.Authorization = 'Bearer ' + 'token';
     return newConfig;
   },
   err => Promise.reject(err),
@@ -36,15 +38,20 @@ instance.interceptors.response.use(
     return data;
   },
   err => {
-    const {status} = err.response;
+    const {response, message} = err;
+    const {status} = response || {};
     if (status === 401) {
-      setRecoil(tokenAtom, {token: ''});
-      Toast.show({type: 'error', text1: '登录失效，请重新登录'});
+      if (navigationRef.getCurrentRoute()?.name !== 'login') {
+        setRecoil(tokenAtom, {});
+        storage.removeItem('token');
+        Toast.show({type: 'error', text1: '登录失效，请重新登录'});
+        navigationRef.reset({index: 0, routes: [{name: 'login' as never}]});
+      }
     } else {
       Toast.show({
         type: 'error',
         text1: '请求失败',
-        text2: JSON.stringify(err),
+        text2: message,
       });
     }
     return Promise.reject(err);

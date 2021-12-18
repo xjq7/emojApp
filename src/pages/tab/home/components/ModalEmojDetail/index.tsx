@@ -85,7 +85,7 @@ function ModalEmojDetail(props: Props) {
             }}
             style={styles.image}
           />
-          <Divider height={20} />
+          <Divider height={30} />
           <Button style={styles.btn} title="保存" onPress={handleSave} />
           <PressView style={styles.close} onPress={onClose}>
             <IoniconsIcon

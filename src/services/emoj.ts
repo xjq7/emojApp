@@ -16,7 +16,7 @@ export enum GetEmojBodyType {
   new = 'new',
 }
 
-interface GetEmojBody extends PageInfo {
+export interface GetEmojBody extends PageInfo {
   name?: string;
   group_id?: number;
   type: GetEmojBodyType;

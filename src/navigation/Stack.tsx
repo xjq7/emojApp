@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import Tab from './Tabs';
 import Setting from '@pages/tab/setting';
 import Launch from '@pages/launch';
@@ -6,6 +6,7 @@ import Login from '@pages/login';
 import EmojSearch from '@pages/emojSearch';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import {navigationRef} from './utils';
 
 export type RootStackParamList = {
   home: undefined;
@@ -20,7 +21,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 
 const StackScreen = () => {
   return (
-    <NavigationContainer>
+    <NavigationContainer ref={navigationRef}>
       <Stack.Navigator screenOptions={{}} initialRouteName="launch">
         <Stack.Screen
           name="launch"

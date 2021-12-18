@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
 import {View, Image, TouchableOpacity} from 'react-native';
-import {Emoj, getEmojList, GetEmojBodyType} from '@services/emoj';
+import {GetEmojBody, getEmojList, GetEmojBodyType} from '@services/emoj';
 import {Loading} from '@components/index';
 import FlatList from '@components/FlatList';
 import styles from './styles';
@@ -15,17 +15,15 @@ function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
 
   const fetchList = useCallback(
     o => {
-      const body: any = {
+      const body: GetEmojBody = {
         ...o.body,
       };
-
       if (type) {
         body.type = type;
       }
       if (name) {
         body.name = name;
       }
-      console.log('body', body);
       return getEmojList(body).then(res => {
         const {data} = res;
         const {list: dataList = []} = data || {};

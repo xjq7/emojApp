@@ -11,18 +11,18 @@ interface Style {
 
 const style: Style = {
   container: {
-    width: 500,
-    height: 500,
+    width: 600,
+    height: 700,
     backgroundColor: themeMap.$White,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 25,
   },
   image: {
-    width: 286,
-    height: 286,
+    width: 420,
+    height: 420,
     marginLeft: 10,
-    marginTop: 20,
+    marginTop: 10,
   },
   btn: {
     width: 180,
