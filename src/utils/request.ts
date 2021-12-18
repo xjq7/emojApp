@@ -8,8 +8,8 @@ import storage from '@lib/storage';
 console.log(Config);
 
 const instance = Axios.create({
-  // baseURL: 'http://192.168.1.106:39001/v1/c',
-  baseURL: Config.API_URL + '/v1/c',
+  baseURL: 'http://192.168.1.106:39001/v1/c',
+  // baseURL: Config.API_URL + '/v1/c',
   timeout: 5000,
   headers: {
     Accept: 'application/json',
@@ -20,7 +20,7 @@ instance.interceptors.request.use(
   (config: any) => {
     const newConfig = {...config};
     const {token = ''} = getRecoil(tokenAtom) || {};
-    newConfig.headers.Authorization = 'Bearer ' + 'token';
+    newConfig.headers.Authorization = 'Bearer ' + token;
     return newConfig;
   },
   err => Promise.reject(err),
