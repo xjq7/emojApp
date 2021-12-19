@@ -29,5 +29,17 @@
             <action android:name="android.intent.action.DOWNLOAD_COMPLETE"/>
         </intent-filter>
       </activity>
+      <activity
+        android:name=".wxapi.WXEntryActivity"
+        android:label="@string/app_name"
+        android:exported="true"
+        android:taskAffinity="com.emojapp"
+        android:launchMode="singleTask"
+      />
+      <activity
+        android:name=".wxapi.WXPayEntryActivity"
+        android:label="@string/app_name"
+        android:exported="true"
+      />
     </application>
 </manifest>

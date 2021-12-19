@@ -27,6 +27,7 @@ import scalePx from '@utils/scalePx';
 import saveImage from '@utils/saveImage';
 import {useRecoilValue} from 'recoil';
 import {userInfoAtom} from '@atom/user';
+import * as WeChat from 'react-native-wechat-lib';
 
 export function EmojItem({
   item,
@@ -188,7 +189,25 @@ function EmojDetailC() {
       <Wrap style={styles.header} col="center" row="center">
         <Image style={styles.logo} source={{uri: emoj?.url}} />
         <Wrap style={styles.header_btn_wrap} flex="col" row="center">
-          <Button size="small" title="发送到微信" />
+          <Button
+            size="small"
+            title="发送到微信"
+            onPress={async () => {
+              Toast.show({type: 'info', text1: '还在写...'});
+              try {
+                // WeChat.shareText({
+                //   text: 'Text content.',
+                //   scene: 0,
+                // });
+                // await WeChat.shareImage({
+                //   imageUrl: emoj?.url?.replace('http://', 'https://') || '',
+                //   scene: 0,
+                // });
+              } catch (error) {
+                console.log(error);
+              }
+            }}
+          />
           <Divider height={30} />
           <Wrap>
             <PressView

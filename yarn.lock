@@ -2935,6 +2935,11 @@ event-target-shim@^5.0.0, event-target-shim@^5.0.1:
   resolved "https://registry.npm.taobao.org/event-target-shim/download/event-target-shim-5.0.1.tgz#5d4d3ebdf9583d63a5333ce2deb7480ab2b05789"
   integrity sha1-XU0+vflYPWOlMzzi3rdICrKwV4k=
 
+events@1.0.1:
+  version "1.0.1"
+  resolved "https://registry.npmmirror.com/events/download/events-1.0.1.tgz#386f6471cbb609e7925e7bfe7468634b9e069ac2"
+  integrity sha1-OG9kccu2CeeSXnv+dGhjS54GmsI=
+
 exec-sh@^0.3.2:
   version "0.3.6"
   resolved "https://registry.nlark.com/exec-sh/download/exec-sh-0.3.6.tgz#ff264f9e325519a60cb5e273692943483cca63bc"
@@ -5731,6 +5736,13 @@ react-native-vector-icons@^9.0.0:
     lodash.template "^4.5.0"
     prop-types "^15.7.2"
     yargs "^16.1.1"
+
+react-native-wechat-lib@^1.1.26:
+  version "1.1.26"
+  resolved "https://registry.nlark.com/react-native-wechat-lib/download/react-native-wechat-lib-1.1.26.tgz#60be6ba92399a38c9df5ca0fc4c1353b089f7210"
+  integrity sha1-YL5rqSOZo4yd9coPxME1OwifchA=
+  dependencies:
+    events "1.0.1"
 
 react-native@0.66.3:
   version "0.66.3"
