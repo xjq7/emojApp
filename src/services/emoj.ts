@@ -82,3 +82,7 @@ interface UpdateUserEmojRelation {
 export function updateUserEmojRelation(body: UpdateUserEmojRelation) {
   return request.post('/emoj/update-user-emoj-relation', body);
 }
+
+export function updateEmojVisit(body: {id: number}) {
+  return request.post('/emoj/update-emoj-visit', body);
+}

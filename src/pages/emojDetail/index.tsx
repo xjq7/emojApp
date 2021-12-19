@@ -16,6 +16,7 @@ import {
   EmojDetail,
   EmojGroup,
   updateUserEmojRelation,
+  updateEmojVisit,
 } from '@services/emoj';
 import {RootStackParamList} from '@navigation/Stack';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
@@ -82,6 +83,7 @@ function EmojDetailC() {
   const [updateRelationLoading, setUpdateRelationLoading] = useState(false);
 
   const islike = useMemo(() => emoj && emoj?.isLike, [emoj]);
+  console.log(emoj);
 
   const fetchData = useCallback(async () => {
     getEmojDetail({id, user_id: userInfo.id as number}).then(res => {
@@ -101,6 +103,10 @@ function EmojDetailC() {
   useEffect(() => {
     fetchData();
   }, [fetchData]);
+
+  useEffect(() => {
+    updateEmojVisit({id});
+  }, []);
 
   const refresh = async () => {
     await fetchData();
@@ -125,7 +131,7 @@ function EmojDetailC() {
         type: 'success',
         text1: (islike ? '取消点赞' : '点赞') + '成功!',
       });
-      refresh();
+      await refresh();
     } catch (error) {
     } finally {
       setUpdateRelationLoading(false);
