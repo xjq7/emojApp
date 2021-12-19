@@ -30,7 +30,7 @@ function Index() {
     }
     goNextPage();
     hideSplash();
-  }, [goNextPage, hideSplash]);
+  }, []);
 
   useEffect(() => {
     initRequest();

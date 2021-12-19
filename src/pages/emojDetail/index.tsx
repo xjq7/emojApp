@@ -147,39 +147,6 @@ function EmojDetailC() {
     }
   };
 
-  const renderItem = ({item}: {item: EmojDetail}) => {
-    const {url, id, like, visit} = item;
-
-    return (
-      <PressView
-        style={styles.item}
-        key={id}
-        onPress={() => {
-          setEmoj(item);
-        }}>
-        <Image style={styles.item_image} source={{uri: url}} />
-        <Wrap style={styles.data_wrap} row="center">
-          <Wrap flex="row">
-            <AntDesignIcon
-              name="eye"
-              color={themeMap.$Primary}
-              size={scalePx(32)}
-            />
-            <Text style={styles.data_label}>{visit}</Text>
-          </Wrap>
-          <Wrap style={styles.like_wrap} flex="row">
-            <AntDesignIcon
-              name="heart"
-              color={themeMap.$Primary}
-              size={scalePx(24)}
-            />
-            <Text style={styles.data_label}>{like}</Text>
-          </Wrap>
-        </Wrap>
-      </PressView>
-    );
-  };
-
   if (loading) {
     return <StatusView tips="加载中..." status={StateStatus.StateLoad} />;
   }
