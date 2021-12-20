@@ -24,7 +24,7 @@ const Stack = createStackNavigator<RootStackParamList>();
 const StackScreen = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator screenOptions={{}} initialRouteName="launch">
+      <Stack.Navigator initialRouteName="launch">
         <Stack.Screen
           name="launch"
           options={{headerShown: false}}

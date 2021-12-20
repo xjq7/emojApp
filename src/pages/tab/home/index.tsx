@@ -22,7 +22,7 @@ export default function HomeScreen() {
   ]);
 
   return (
-    <Container hasHeader={false}>
+    <Container headerHide={true}>
       <Search />
       <TabView
         renderTabBar={props => (

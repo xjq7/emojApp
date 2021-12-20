@@ -12,7 +12,7 @@ function EmojSearch() {
   };
 
   return (
-    <Container hasHeader={true}>
+    <Container>
       <Divider height={10} />
       <TextInput
         onChangeText={debounce(handleNameChange, 1000)}

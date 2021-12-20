@@ -75,18 +75,22 @@ function EmojDetailC() {
   const userInfo = useRecoilValue(userInfoAtom);
 
   const [loading, setLoading] = useState(true);
-  const [emoj, setEmoj] = useState<EmojDetail>();
   const [emojList, setEmojList] = useState<EmojDetail[]>([]);
   const [emojGroup, setEmojGroup] = useState<EmojGroup>();
+  const [selectId, setSelectId] = useState<number>(id);
 
   const [saveImageLoading, setSaveImageLoading] = useState(false);
   const [updateRelationLoading, setUpdateRelationLoading] = useState(false);
 
+  const emoj = useMemo(
+    () => emojList.find(o => o.id === selectId),
+    [selectId, emojList],
+  );
+
   const islike = useMemo(() => emoj && emoj?.isLike, [emoj]);
-  console.log(emoj);
 
   const fetchData = useCallback(async () => {
-    getEmojDetail({id, user_id: userInfo.id as number}).then(res => {
+    getEmojDetail({id: selectId, user_id: userInfo.id as number}).then(res => {
       const {data} = res;
       let {emoj_list = [], emoj_group_info} = data || {};
       emoj_list = emoj_list.map((item: EmojDetail) => ({
@@ -95,17 +99,16 @@ function EmojDetailC() {
       }));
       setEmojGroup(emoj_group_info);
       setEmojList(emoj_list || []);
-      setEmoj(emoj_list.find((item: EmojDetail) => item.id === id));
       setLoading(false);
     });
-  }, [id, userInfo]);
+  }, [selectId, userInfo]);
 
   useEffect(() => {
     fetchData();
   }, [fetchData]);
 
   useEffect(() => {
-    updateEmojVisit({id});
+    updateEmojVisit({id: selectId});
   }, []);
 
   const refresh = async () => {
@@ -212,7 +215,9 @@ function EmojDetailC() {
             <EmojItem
               item={item}
               onPress={() => {
-                setEmoj(item);
+                if (item.id) {
+                  setSelectId(item.id);
+                }
               }}
             />
           );

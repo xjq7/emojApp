@@ -1,21 +1,33 @@
 import React from 'react';
-import {ViewProps, View} from 'react-native';
+import {ViewProps, View, StatusBar} from 'react-native';
 import {SafeAreaView} from 'react-native-safe-area-context';
-
+import getStatusBarHeight from '@utils/getStatusBarHeight';
 import styles from './styles';
+import {isAndroid} from '@utils/platform';
 
 interface Props extends ViewProps {
-  hasHeader?: boolean;
+  headerHide?: boolean;
 }
 
 export default function Container(props: Props) {
-  const {children, hasHeader = true, style} = props;
+  const {children, headerHide = true, style} = props;
 
-  if (hasHeader) {
-    return <View style={[styles.container, style]}>{children}</View>;
+  if (headerHide) {
+    return (
+      <>
+        <StatusBar barStyle="dark-content" backgroundColor="transparent" />
+        {!isAndroid && (
+          <View
+            style={{
+              height: getStatusBarHeight(),
+              backgroundColor: 'transparent',
+            }}
+          />
+        )}
+        <View style={[styles.container, style]}>{children}</View>
+      </>
+    );
   }
 
-  return (
-    <SafeAreaView style={[styles.container, style]}>{children}</SafeAreaView>
-  );
+  return <View style={[styles.container, style]}>{children}</View>;
 }
