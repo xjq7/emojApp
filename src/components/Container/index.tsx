@@ -10,7 +10,7 @@ interface Props extends ViewProps {
 }
 
 export default function Container(props: Props) {
-  const {children, headerHide = true, style} = props;
+  const {children, headerHide = false, style} = props;
 
   if (headerHide) {
     return (
