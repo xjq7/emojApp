@@ -74,6 +74,7 @@ function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
         refreshing={isRefresh}
         onRefresh={onRefresh}
         onEndReached={onEndReached}
+        isEnd={isEnd}
       />
     </>
   );
