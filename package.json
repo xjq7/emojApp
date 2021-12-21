@@ -14,7 +14,8 @@
     "lint": "eslint src --ext .js,.jsx,.ts,.tsx --cache -f codeframe --fix",
     "pre-commit": "pretty-quick --staged",
     "pretty": "pretty-quick --staged",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "npm_fix": "bash npm_fix.sh"
   },
   "dependencies": {
     "@react-native-async-storage/async-storage": "^1.15.14",
