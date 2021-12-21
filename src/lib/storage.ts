@@ -1,4 +1,4 @@
-import AsyncStorage from '@react-native-community/async-storage';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const setItem = function (key: string, obj: any) {
   AsyncStorage.setItem(key, JSON.stringify(obj));
