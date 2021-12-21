@@ -213,6 +213,7 @@ function EmojDetailC() {
         {emojList.map((item: EmojDetail) => {
           return (
             <EmojItem
+              key={item.id}
               item={item}
               onPress={() => {
                 if (item.id) {

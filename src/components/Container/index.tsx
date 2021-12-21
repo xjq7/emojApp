@@ -16,14 +16,12 @@ export default function Container(props: Props) {
     return (
       <>
         <StatusBar barStyle="dark-content" backgroundColor="transparent" />
-        {!isAndroid && (
-          <View
-            style={{
-              height: getStatusBarHeight(),
-              backgroundColor: 'transparent',
-            }}
-          />
-        )}
+        <View
+          style={{
+            height: getStatusBarHeight(),
+            backgroundColor: 'transparent',
+          }}
+        />
         <View style={[styles.container, style]}>{children}</View>
       </>
     );
