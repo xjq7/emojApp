@@ -8,6 +8,7 @@ import Loading from './Loading';
 import TextInput from './TextInput';
 import Wrap from './Wrap';
 import StatusView from './StatusView';
+import Image from './Image';
 export {
   Toast,
   Container,
@@ -19,4 +20,5 @@ export {
   TextInput,
   Wrap,
   StatusView,
+  Image,
 };

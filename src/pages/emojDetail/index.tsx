@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useMemo, useState} from 'react';
-import {Text, Image, View} from 'react-native';
+import {Text, View} from 'react-native';
 import {
   Button,
   Container,
@@ -8,6 +8,7 @@ import {
   StatusView,
   Wrap,
   Toast,
+  Image,
 } from '@components/index';
 import {StateStatus} from '@components/StatusView';
 import {RouteProp, useRoute} from '@react-navigation/native';
@@ -43,7 +44,8 @@ export function EmojItem({
     <PressView style={styles.item} key={id} onPress={onPress}>
       <Image
         style={styles.item_image}
-        source={{uri: url?.replace('https://', 'http://')}}
+        resizeMode="contain"
+        url={url?.replace('https://', 'http://')}
       />
       <Wrap style={styles.data_wrap} row="center">
         <Wrap flex="row">
@@ -163,7 +165,7 @@ function EmojDetailC() {
   return (
     <Container style={{backgroundColor: themeMap.$White}}>
       <Wrap style={styles.header} col="center" row="center">
-        <Image style={styles.logo} source={{uri: emoj?.url}} />
+        <Image style={styles.logo} url={emoj?.url} resizeMode="contain" />
         <Wrap style={styles.header_btn_wrap} flex="col" row="center">
           <Button
             size="small"

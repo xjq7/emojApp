@@ -6433,6 +6433,11 @@ react-native-config@^1.4.5:
   resolved "https://registry.npmmirror.com/react-native-config/download/react-native-config-1.4.5.tgz#6fe5895410b75e44fe4f4bf00caaf894a0981f3a"
   integrity sha1-b+WJVBC3XkT+T0vwDKr4lKCYHzo=
 
+react-native-fast-image@^8.5.11:
+  version "8.5.11"
+  resolved "https://registry.npmmirror.com/react-native-fast-image/download/react-native-fast-image-8.5.11.tgz#e3dc969d0e4e8df026646bf18194465aa55cbc2b"
+  integrity sha1-49yWnQ5OjfAmZGvxgZRGWqVcvCs=
+
 react-native-fs@^2.18.0:
   version "2.18.0"
   resolved "https://registry.nlark.com/react-native-fs/download/react-native-fs-2.18.0.tgz#987b99cc90518ef26663a8d60e62104694b41c21"
