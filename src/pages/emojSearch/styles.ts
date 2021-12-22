@@ -11,6 +11,7 @@ const style: Style = {
     width: '100%',
     height: 80,
     borderRadius: 20,
+    paddingHorizontal: 20,
     backgroundColor: themeMap.$White,
   },
 };
