@@ -25,28 +25,31 @@ function useInfinityList<T>(
     }
     isLoading.current = true;
     const getData = {body: {page: num, pageSize: size}};
-    fetchMethod(getData).then(res => {
-      if (!Array.isArray(res)) {
-        throw Error('request result is not array');
-      }
-      const resTotal = res.length;
-      const isFirstPage = num <= page;
-      if (resTotal < size) {
-        setIsEnd(true);
-      } else {
-        setIsEnd(false);
-      }
-      if (isFirstPage && resTotal === 0) {
-        setArray([]);
-      } else if (isFirstPage) {
-        setArray(res);
-      } else {
-        setArray((array as T[]).concat(res));
-      }
-      isLoading.current = false;
-      setRefresh(false);
-      setLoadMore(false);
-    });
+    fetchMethod(getData)
+      .then(res => {
+        if (!Array.isArray(res)) {
+          throw Error('request result is not array');
+        }
+        const resTotal = res.length;
+        const isFirstPage = num <= page;
+        if (resTotal < size) {
+          setIsEnd(true);
+        } else {
+          setIsEnd(false);
+        }
+        if (isFirstPage && resTotal === 0) {
+          setArray([]);
+        } else if (isFirstPage) {
+          setArray(res);
+        } else {
+          setArray((array as T[]).concat(res));
+        }
+      })
+      .finally(() => {
+        setLoadMore(false);
+        setRefresh(false);
+        isLoading.current = false;
+      });
   }, [num, size, forceRefresh]);
 
   useEffect(() => {

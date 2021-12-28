@@ -11,7 +11,7 @@ const instance = Axios.create({
   baseURL: 'http://api.xjq.icu/v1/c',
   // baseURL: 'http://192.168.1.106:39001/v1/c',
   // baseURL: Config.API_URL + '/v1/c',
-  timeout: 5000,
+  timeout: 8000,
   headers: {
     Accept: 'application/json',
   },

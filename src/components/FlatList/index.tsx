@@ -11,6 +11,7 @@ const FlatList = Animated.FlatList;
 
 export interface Props extends FlatListProps<any> {
   isEnd?: boolean;
+  isLoadMore?: boolean;
   stickyHeaderIndicesPro?: number[];
 }
 
