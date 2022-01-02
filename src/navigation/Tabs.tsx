@@ -45,25 +45,22 @@ export default function App() {
         name="Home"
         component={Home}
         options={{
-          tabBarLabel: '首页',
-          headerTitle: '首页',
           headerShown: false,
         }}
       />
-      <Tab.Screen
+      {/* <Tab.Screen
         name="Emoj"
         component={Emoj}
         options={{
           tabBarLabel: 'Emoj',
           headerTitle: '小表情',
         }}
-      />
+      /> */}
       <Tab.Screen
         name="Setting"
         component={Setting}
         options={{
-          tabBarLabel: '设置',
-          headerTitle: '小表情',
+          headerShown: false,
         }}
       />
     </Tab.Navigator>
