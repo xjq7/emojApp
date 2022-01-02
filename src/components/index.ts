@@ -9,6 +9,7 @@ import TextInput from './TextInput';
 import Wrap from './Wrap';
 import StatusView from './StatusView';
 import Image from './Image';
+import Text from './Text';
 export {
   Toast,
   Container,
@@ -21,4 +22,5 @@ export {
   Wrap,
   StatusView,
   Image,
+  Text,
 };
