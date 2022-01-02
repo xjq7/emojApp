@@ -58,19 +58,7 @@ export interface GetEmojListBody extends PageInfo {
 export function getEmojGroupList(
   body: GetEmojListBody,
 ): Promise<ResponseList<EmojGroup>> {
-  return request.post('/emoj/group/list', body);
-}
-
-export function updateEmojGroup(body: EmojGroup): Promise<Response> {
-  return request.post('/emoj/group/update', body);
-}
-
-export function deleteEmojGroup(body: EmojGroup): Promise<Response> {
-  return request.post('/emoj/group/delete', body);
-}
-
-export function deleteEmoj(body: {id: number}): Promise<Response> {
-  return request.post('/emoj/delete', body);
+  return request.post('/emoj-group/list', body);
 }
 
 interface UpdateUserEmojRelation {

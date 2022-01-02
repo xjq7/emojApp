@@ -64,19 +64,17 @@ function EmojList(props: {type?: GetEmojBodyType; name?: string}) {
   }
 
   return (
-    <>
-      <FlatList
-        data={Array.isArray(array) ? array : []}
-        keyExtractor={item => String(item.id)}
-        renderItem={renderItem}
-        numColumns={3}
-        horizontal={false}
-        refreshing={isRefresh}
-        onRefresh={onRefresh}
-        onEndReached={onEndReached}
-        isEnd={isEnd}
-      />
-    </>
+    <FlatList
+      data={Array.isArray(array) ? array : []}
+      keyExtractor={item => String(item.id)}
+      renderItem={renderItem}
+      numColumns={3}
+      horizontal={false}
+      refreshing={isRefresh}
+      onRefresh={onRefresh}
+      onEndReached={onEndReached}
+      isEnd={isEnd}
+    />
   );
 }
 
